@@ -4,7 +4,7 @@ namespace MemorizeHelper.API.Models
 {
     public class MemorizeUnit
     {
-
+        //
         //the foreign key we will take care later, for now you can just take them as normal int properties when you create basic operation
         public int Id { get; set; }
         public int OwnerUserId { get; set; }
