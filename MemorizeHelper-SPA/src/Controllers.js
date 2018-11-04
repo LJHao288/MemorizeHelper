@@ -3,18 +3,18 @@ var app = angular.module('MainApp', []);
 // Shared function : load data from server & update contacts list when a new one added
 app.run(function ($rootScope, $http) {
 
-    $rootScope.NoContactYet = true;
+    $rootScope.NoDataYet = true;
 
     $rootScope.LoadDataFromDB = function () {
 
         $http.get
-            ("http://localhost:56966/api/contact/")
+            ("http://localhost:44724/api/MemorizeUnit")
             .then(function (response) {
 
                 $rootScope.data = response.data;
 
                 if ($rootScope.data.length > 0) {
-                    $rootScope.NoContactYet = false;
+                    $rootScope.NoDataYet = false;
                 }
 
             },
@@ -137,7 +137,7 @@ app.controller('InputPopupContr', function ($rootScope, $scope, $http) {
 });
 
 // Controller desplay output
-app.controller('DisplayContactsContr', function ($scope, $http) {
+app.controller('DisplayUnitsContr', function ($scope, $http) {
 
     //display Shared Emp in form 
     var SetSharedEmpinForm = function (index) {
