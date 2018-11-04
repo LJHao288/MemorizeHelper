@@ -74,6 +74,22 @@ namespace MemorizeHelper.API.Controllers
             }
         }
 
+        // Delete Unit
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            Models.MemorizeUnit contact = _context.MemorizeUnits.Find(id);
+            if (contact == null) { }
+            else
+            {
+                _context.MemorizeUnits.Remove(contact);
+                _context.SaveChanges();
+            }
+        }
+
+
+
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -91,17 +107,7 @@ namespace MemorizeHelper.API.Controllers
         
 
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            Models.MemorizeUnit contact = _context.MemorizeUnits.Find(id);
-            if (contact == null) { }
-            else
-            {
-                _context.MemorizeUnits.Remove(contact);
-                _context.SaveChanges();
-            }
-        }
+        
 
     }
 }
