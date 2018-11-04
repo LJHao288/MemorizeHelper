@@ -147,21 +147,33 @@
 
         
 		
-		<div ng-controller="DisplayUnitsContr" ng-init="LoadDataFromDB()">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div ng-controller="DisplayContactsContr" ng-init="LoadDataFromDB()">
 
-		
-		
-		
-            <div class="row" ng-hide="!NoDataYet">
-                <p>                No Available Data Yet !</p>
+            <div class="row" ng-hide="!NoContactYet">
+                <p>                No Available Contacts Yet !</p>
             </div>
 
-			
-			
-			
-			
             <div class="row" ng-repeat="X in data">
 
+<<<<<<< HEAD
                 <div class="col-md-1"><p> {{X.title}} </p></div>
 				
 				<div class="col-md-1"><button data-toggle="modal" data-target="#myModalDisplay" type="button" ng-click="ExpandUnit(X)" class="btn btn-default ">View</button></div>
@@ -169,12 +181,14 @@
 				<div class="col-md-1"><button data-toggle="modal" data-target="" type="button" ng-click="" class="btn btn-default ">Edit</button></div>
 
                 <div class="col-md-1"><button data-toggle="modal" data-target="" type="button" ng-click="" class="btn btn-default ">Delete</button></div>
+=======
+                <div class="col-md-1"><p>{{X.FirstName}} {{X.LastName}}</p></div>
+                <div class="col-md-1"><p>0{{X.MobileNumber}}</p></div>
+                <div class="col-md-1"><button data-toggle="modal" data-target="#myModalDisplay" type="button" ng-click="ExpandContact(X)" class="btn btn-default ">Details</button></div>
+>>>>>>> parent of 4291c2e... Display Units List
 
             </div>
 
-			
-			
-			
             <div class="modal fade" id="myModalDisplay" role="dialog" ng-init="" data-backdrop="static">
 
                 <div class="modal-dialog">
