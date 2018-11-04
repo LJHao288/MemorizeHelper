@@ -22,7 +22,6 @@ namespace MemorizeHelper.API.Controllers
             _context = context;
         }
 
-        
         // Add memory unit for the first time
         [HttpPost]
         public void Post([FromBody] Models.MemorizeUnit Record)
@@ -59,8 +58,21 @@ namespace MemorizeHelper.API.Controllers
             return Ok(Record);
         }
 
+        //Edit MemoryUnit
+        [HttpPut("{NewRec}")]
+        public void Put([FromBody] Models.MemorizeUnit NewRec)
+        {
+            try
+            {
+                _context.MemorizeUnits.Attach(NewRec);
+                _context.Entry(NewRec).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
 
-
+            }
+        }
 
         [AllowAnonymous]
         [HttpGet]
@@ -76,20 +88,7 @@ namespace MemorizeHelper.API.Controllers
 
         
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Models.MemorizeUnit NewRec)
-        {
-            try
-            {
-                _context.MemorizeUnits.Attach(NewRec);
-                _context.Entry(NewRec).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-
-            }
-        }
+        
 
 
         [HttpDelete("{id}")]
