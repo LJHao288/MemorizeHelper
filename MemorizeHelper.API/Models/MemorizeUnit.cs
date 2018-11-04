@@ -27,7 +27,7 @@ namespace MemorizeHelper.API.Models
 
         public string Priority { get; set; }
 
-        public List<Tag> Tags { get; set; }
+        public string Tags { get; set; }
 
         //picture later
     }

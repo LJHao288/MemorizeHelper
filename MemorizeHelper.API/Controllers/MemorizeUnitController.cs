@@ -23,11 +23,14 @@ namespace MemorizeHelper.API.Controllers
         }
 
         // Add memory unit for the first time
+        [AllowAnonymous]
         [HttpPost]
         public void Post([FromBody] Models.MemorizeUnit Record)
         {
             try
             {
+                Record.CreationDate = DateTime.Now;
+
                 _context.MemorizeUnits.Add(Record);
 
                 _context.SaveChanges();
