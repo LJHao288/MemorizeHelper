@@ -3,18 +3,32 @@ using System;
 using MemorizeHelper.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MemorizeHelper.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20181104164320_UpdateSchedule4")]
+    partial class UpdateSchedule4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-preview2-35157");
+
+            modelBuilder.Entity("MemorizeHelper.API.Models.Content", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Content");
+                });
 
             modelBuilder.Entity("MemorizeHelper.API.Models.MemorizeUnit", b =>
                 {
@@ -29,17 +43,21 @@ namespace MemorizeHelper.API.Migrations
 
                     b.Property<string>("Priority");
 
-                    b.Property<string>("StringContent");
-
                     b.Property<string>("SubjectName");
 
                     b.Property<string>("Tags");
 
                     b.Property<string>("Title");
 
+                    b.Property<int?>("UnitContentId");
+
+                    b.Property<int>("unitContent");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerUserid");
+
+                    b.HasIndex("UnitContentId");
 
                     b.ToTable("MemorizeUnits");
                 });
@@ -109,6 +127,10 @@ namespace MemorizeHelper.API.Migrations
                     b.HasOne("MemorizeHelper.API.Models.User_", "OwnerUser")
                         .WithMany()
                         .HasForeignKey("OwnerUserid");
+
+                    b.HasOne("MemorizeHelper.API.Models.Content", "UnitContent")
+                        .WithMany()
+                        .HasForeignKey("UnitContentId");
                 });
 
             modelBuilder.Entity("MemorizeHelper.API.Models.Schedule", b =>

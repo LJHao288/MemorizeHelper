@@ -159,9 +159,9 @@ app.controller('DisplayUnitsContr', function ($scope, $http) {
         }
     }
 
-    $scope.ExpandContact = function (Contact) {
+    $scope.ExpandUnit = function (Unit) {
 
-        $scope.CurrentContact = Contact;
+        $scope.CurrentUnit = Unit;
 
         $scope.DisContactType = Contact.ContactType;
         $scope.DisFirstName = Contact.FirstName;

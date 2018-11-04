@@ -3,18 +3,34 @@ using System;
 using MemorizeHelper.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MemorizeHelper.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20181104171457_ReverseDB")]
+    partial class ReverseDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-preview2-35157");
+
+            modelBuilder.Entity("MemorizeHelper.API.Models.Content", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("MemorizeUnitId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemorizeUnitId");
+
+                    b.ToTable("Content");
+                });
 
             modelBuilder.Entity("MemorizeHelper.API.Models.MemorizeUnit", b =>
                 {
@@ -102,6 +118,13 @@ namespace MemorizeHelper.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Values");
+                });
+
+            modelBuilder.Entity("MemorizeHelper.API.Models.Content", b =>
+                {
+                    b.HasOne("MemorizeHelper.API.Models.MemorizeUnit")
+                        .WithMany("UnitContent")
+                        .HasForeignKey("MemorizeUnitId");
                 });
 
             modelBuilder.Entity("MemorizeHelper.API.Models.MemorizeUnit", b =>
