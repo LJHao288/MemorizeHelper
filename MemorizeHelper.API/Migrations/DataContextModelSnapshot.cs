@@ -16,6 +16,18 @@ namespace MemorizeHelper.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-preview2-35157");
 
+            modelBuilder.Entity("MemorizeHelper.API.Models.Content", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Content");
+                });
+
             modelBuilder.Entity("MemorizeHelper.API.Models.MemorizeUnit", b =>
                 {
                     b.Property<int>("Id")
@@ -29,17 +41,21 @@ namespace MemorizeHelper.API.Migrations
 
                     b.Property<string>("Priority");
 
-                    b.Property<string>("StringContent");
-
                     b.Property<string>("SubjectName");
 
                     b.Property<string>("Tags");
 
                     b.Property<string>("Title");
 
+                    b.Property<int?>("UnitContentId");
+
+                    b.Property<int>("unitContent");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerUserid");
+
+                    b.HasIndex("UnitContentId");
 
                     b.ToTable("MemorizeUnits");
                 });
@@ -109,6 +125,10 @@ namespace MemorizeHelper.API.Migrations
                     b.HasOne("MemorizeHelper.API.Models.User_", "OwnerUser")
                         .WithMany()
                         .HasForeignKey("OwnerUserid");
+
+                    b.HasOne("MemorizeHelper.API.Models.Content", "UnitContent")
+                        .WithMany()
+                        .HasForeignKey("UnitContentId");
                 });
 
             modelBuilder.Entity("MemorizeHelper.API.Models.Schedule", b =>

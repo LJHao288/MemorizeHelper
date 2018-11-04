@@ -14,7 +14,7 @@ namespace MemorizeHelper.API.Models
 
         public string Title { get; set; }
 
-        public string StringContent { get; set; }
+        public Content UnitContent { get; set; }
 
         public virtual List<Schedule> Schedules { get; set; }
 
