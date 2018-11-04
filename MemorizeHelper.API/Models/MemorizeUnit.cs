@@ -6,7 +6,6 @@ namespace MemorizeHelper.API.Models
     public class MemorizeUnit
     {
 
-        //the foreign key we will take care later, for now you can just take them as normal int properties when you create basic operation
         public int Id { get; set; }
 
         public User_ OwnerUser { get; set; }
@@ -17,7 +16,7 @@ namespace MemorizeHelper.API.Models
 
         public Content UnitContent { get; set; }
 
-        public List<Schedule> Schedules { get; set; }
+        public virtual List<Schedule> Schedules { get; set; }
 
         public string SubjectName { set; get; }
 

@@ -1,14 +1,309 @@
-<!doctype html>
-<html lang="en">
+﻿<html>
 <head>
-  <meta charset="utf-8">
-  <title>MemorizeHelperSPA</title>
-  <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>My Profile</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+		
+    <link href="index_style.css" rel="stylesheet" />
+    <script src="Controllers.js"></script>
+
 </head>
 <body>
-  <app-root></app-root>
+
+
+    <div class="MainContainer" ng-app="MainApp">
+
+	
+		
+        <div class="AddBut"><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> New </button></div>
+
+		
+		<div class="modal fade" id="myModal" role="dialog" ng-controller="InputPopupContr" ng-init="ResetForm()" data-backdrop="static">
+
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+
+				
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="ResetForm();;LoadDataFromDB()">&times;</button>
+                        <h4 class="modal-title" ng-init="HeaderText='New Memory Unit'">{{HeaderText}}</h4>
+                    </div>
+
+					
+                    <div class="modal-body">
+
+                        
+						<div class="AddNweUnitForm">
+
+							
+                                <form name="NewUnitInputForm" class="form-horizontal">
+
+								
+								    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Title</label>
+                                        <div class="col-sm-10">
+                                            <input type="Text" class="form-control" ng-model="Title" required>
+                                        </div>
+                                    </div>
+									
+						
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label">Subject</label>
+                                        <div class="col-sm-10">
+                                            <input type="Text" class="form-control" ng-model="Subject">
+                                        </div>
+                                    </div>
+									
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Priority</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" ng-model="Priority" ng-options="x for x in PriorityOptions"></select>
+                                        </div>
+                                    </div>
+									
+									
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label">Privacy</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" ng-model="Privacy" ng-options="x for x in PrivacyOptions"></select>
+                                        </div>
+                                    </div>
+
+
+                                 
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Tags</label>
+                                        <div class="col-sm-10">
+                                            <input type="Text" class="form-control" ng-model="Tags" >
+                                        </div>
+                                    </div>
+									
+									
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label">Schedules</label>
+                                        <div class="col-sm-10">
+                                            <input type="datetime-local" class="form-control" ng-model="Remender" ng-change="ChangeDate()">
+                                        </div>
+                                    </div>
+									
+									
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label"></label>
+                                        <div class="col-sm-10">
+											<button type="button" class="btn btn-default"  ng-click="AddRemender()" ng-disabled="AddRemenderDisable"> Add Remender</button>
+                                        </div>
+                                    </div>
+								
+									
+									<div class="form-group">
+                                        <label class="col-sm-2 control-label">Content</label>
+                                        <div class="col-sm-10">
+                                            <textarea type="Text" class="form-control" ng-model="Content" required></textarea>
+                                        </div>
+                                    </div>
+					
+					
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button class="btn btn-default" ng-disabled="NewUnitInputForm.$invalid" ng-click="SaveUnit()" ng-hide="SaveButtonHideFlag">Add</button>
+                                        </div>
+                                    </div>
+				
+                                </form>
+
+                           
+
+                          
+                            <div class="alert alert-success" ng-show="MessageBoxFlagSave">
+                                <button type="button" class="close" ng-click="MessageBoxFlagSave = false ; SaveButtonHideFlag = false">×</button>
+                                <strong> Done ! </strong>
+                            </div>
+
+							
+                            <div class="alert alert-danger" ng-show="MessageBoxFlagError">
+                                <button type="button" class="close" ng-click="MessageBoxFlagError = false ; SaveButtonHideFlag = false">×</button>
+                                <strong> Error, Please Try Again </strong>
+                            </div>
+
+							
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="ResetForm();LoadDataFromDB()">Cancle</button>
+                        </div>
+                    </div>
+                
+				</div>
+            </div>
+
+        </div>
+
+        
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div ng-controller="DisplayContactsContr" ng-init="LoadDataFromDB()">
+
+            <div class="row" ng-hide="!NoContactYet">
+                <p>                No Available Contacts Yet !</p>
+            </div>
+
+            <div class="row" ng-repeat="X in data">
+
+                <div class="col-md-1"><p>{{X.FirstName}} {{X.LastName}}</p></div>
+                <div class="col-md-1"><p>0{{X.MobileNumber}}</p></div>
+                <div class="col-md-1"><button data-toggle="modal" data-target="#myModalDisplay" type="button" ng-click="ExpandContact(X)" class="btn btn-default ">Details</button></div>
+
+            </div>
+
+            <div class="modal fade" id="myModalDisplay" role="dialog" ng-init="" data-backdrop="static">
+
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" ng-click="">&times;</button>
+                            <h4 class="modal-title" ng-init="HeaderText='New Contact'">Contact Details</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="DisplayForm">
+
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Contact Type</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="DisContactType" readonly>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">First Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="DisFirstName" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Last Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="DisLastName" readonly>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Mobile Number</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="DisMobileNumber" readonly>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" ng-hide="LandLineNumberFlag">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Land-Line Number</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="DisLandLineNumber" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" ng-hide="RelationshipFlag">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Relationship</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" ng-model="DisRelationship" readonly>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="SharedEmpAreaforDis" ng-hide="SharedEmpFlag">
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Shared Employers </label>
+
+
+                                            <div class="col-sm-10">
+                                                <button type="submit" class="btn btn-default" ng-click="Previous()" margin-right:10px;" ng-disabled="PrevButtondisabled">Previous</button>
+                                                <button type="submit" class="btn btn-default" ng-click="Next()" ng-disabled="nextButtondisabled">Next</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" ng-model="DisSharedEmpName" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Start Year</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" ng-model="DisSharedEmpStartYear" readonly>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group" ng-hide="DiEmpIsPresnt">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">End Year</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" ng-model="DisSharedEmpEndYear" readonly>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group" ng-hide="!DiEmpIsPresnt">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" ng-model="true" readonly /> Present
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="">Cancle</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 </body>
+
 </html>
