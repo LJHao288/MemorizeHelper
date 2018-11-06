@@ -1,0 +1,72 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+textarea { 
+   /* will prevent resizing horizontally */
+   max-width: 90%;
+   min-width: 100px;
+   min-height:50px;
+}
+
+
+
+body {
+    background-color: #FFFFFF;
+}
+
+.MainContainer {
+    min-width: 180px;
+    background-color: #D6D6D6;
+    width: 60%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-top: 30px;
+    border-radius: 6px;
+    border-color: #46b8da;
+    padding-bottom: 10px;
+}
+
+.form-control {
+    width: 50%;
+}
+
+.alert-danger {
+    width: 60%;
+    margin-left: 10px;
+}
+
+.alert-success {
+    width: 60%;
+    margin-left: 10px;
+}
+
+.row {
+    margin-left: 12%;
+    margin-right: 12%;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: auto;
+    background-color: #5bc0de;
+    border-radius: 6px;
+    border-color: #46b8da;
+}
+
+.col-md-1 {
+    min-width: 130px;
+    width: 25%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.AddBut {
+    margin-left: 12%;
+    margin-bottom: 10px;
+}
