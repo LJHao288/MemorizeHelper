@@ -27,9 +27,11 @@ var post=this.httpClient.post("http://127.0.0.1:5000/api/auth/register", paramet
 
 .subscribe(data => 
   {
-    
-    
-    alert('User added Successfully');
+    document.getElementById("SUAnchor").textContent = "User added Successfully , click here to sign In! "; 
+     document.getElementById("SUAnchor").style.color = "#4a7248";
+     document.getElementById("SUAnchor").style.fontWeight = "bold"
+    //alert('User added Successfully');
+
   
   }
   
@@ -42,7 +44,9 @@ var post=this.httpClient.post("http://127.0.0.1:5000/api/auth/register", paramet
           this.router.navigateByUrl('/');
         }
         else if(JSON.stringify(error).indexOf("Password length")!=-1){
-          alert("Password length must between 4 and 8");
+          //alert("Password length must between 4 and 8");
+          document.getElementById("SUAnchor").textContent = "Password length must between (4 - 8 Characters) , click here to sign In! "; 
+          document.getElementById("SUAnchor").style.color = "#ff0000";
         }
         else{
           alert(error);

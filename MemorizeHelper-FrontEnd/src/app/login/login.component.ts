@@ -35,8 +35,10 @@ export class LoginComponent implements OnInit {
    {
     console.log("err"+JSON.stringify(err.statusText));
  if(JSON.stringify(err.statusText).indexOf("Unauthorized")!=-1){
-     alert("Unregistered User");
-
+     //alert("Unregistered User");
+     document.getElementById("SIAnchor").textContent = "Invaild Username or password ,please click here to sign up! "; 
+     document.getElementById("SIAnchor").style.color = "#ff0000";
+     
    }
   }  
  
