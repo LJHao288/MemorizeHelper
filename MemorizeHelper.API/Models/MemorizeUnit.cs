@@ -10,6 +10,8 @@ namespace MemorizeHelper.API.Models
 
         public User_ OwnerUser { get; set; }
 
+        public string Username { get; set; }
+
         public List<User_> SubscribedUsers { get; set; }
 
         public string Title { get; set; }

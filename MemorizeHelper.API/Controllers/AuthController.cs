@@ -24,6 +24,7 @@ namespace MemorizeHelper.API.Controllers
             _repo = repo;
 
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -74,7 +75,7 @@ namespace MemorizeHelper.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {token = tokenHandler.WriteToken(token)});
+            return Ok(new {token = tokenHandler.WriteToken(token), Username = userFromRepo.Username });
 
         }
     }

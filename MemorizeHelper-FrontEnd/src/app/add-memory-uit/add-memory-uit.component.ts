@@ -23,6 +23,8 @@ export class AddMemoryUitComponent implements OnInit {
   
   Schedules = [];
   
+  Username = "";
+  
   constructor(private httpClient:HttpClient) { }
   
   ngOnInit() {
@@ -33,6 +35,10 @@ export class AddMemoryUitComponent implements OnInit {
   
   onFormSubmit(Data) 
   {
+	  
+	   this.Username = localStorage.getItem('Username');
+	   
+	   console.log(this.Username);
 	   
 	   this.TempPrivacy = ("Private" == Data.Privacy);
 	   
@@ -40,7 +46,7 @@ export class AddMemoryUitComponent implements OnInit {
 	   
 	   this.Schedules.push({Date : Data.Schedules});
 	   
-	   this.JsonData = { Title: Data.Title, Tags : Data.Tags, IsPrivate: this.TempPrivacy, Priority : Data.Priority, SubjectName : Data.Subject,UnitContent: this.Content ,Schedules:this.Schedules };
+	   this.JsonData = {Title: Data.Title, Tags : Data.Tags, IsPrivate: this.TempPrivacy, Priority : Data.Priority, SubjectName : Data.Subject,UnitContent: this.Content ,Schedules:this.Schedules, OwnerUser : {Username:this.Username} };
 	   
 	   const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	   

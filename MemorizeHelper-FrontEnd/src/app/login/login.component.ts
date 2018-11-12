@@ -9,6 +9,9 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class LoginComponent implements OnInit {
 
   constructor(private httpClient:HttpClient,private router: Router) { }
+  
+  
+  
 
   ngOnInit() {
   }
@@ -26,7 +29,14 @@ export class LoginComponent implements OnInit {
 
   .subscribe(
     data => {
-    var token=JSON.stringify(data);
+		
+	
+	
+	localStorage.setItem('isLoggedIn', "true");
+	
+	localStorage.setItem('Username', data.username);
+	
+   var token=JSON.stringify(data);
    console.log("data"+token);
    this.router.navigateByUrl('/addmemoryunit');
    }
