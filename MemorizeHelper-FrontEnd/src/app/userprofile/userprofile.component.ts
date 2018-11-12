@@ -29,7 +29,7 @@ export class UserprofileComponent implements OnInit {
 	 
 	  console.log(this.AllData);
 	 
-	 }err =>{
+	 },err =>{
 		 
 	alert("Error");	 
 		 
@@ -60,6 +60,11 @@ export class UserprofileComponent implements OnInit {
 	localStorage.setItem('Username', "-");
   }
   
+  View(X)
+  {
+	  localStorage.setItem('CurrentUnit', JSON.stringify(X));
+	  this.router.navigateByUrl('/viewunit');
+  }
   
 
 }

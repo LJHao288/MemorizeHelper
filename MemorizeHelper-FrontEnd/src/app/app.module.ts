@@ -13,6 +13,7 @@ import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { AddMemoryUitComponent } from './add-memory-uit/add-memory-uit.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
+import { ViewUnitComponent } from './view-unit/view-unit.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
     UserComponent,
     AddMemoryUitComponent,
     UserprofileComponent,
+    ViewUnitComponent,
     
   ],
   imports: [
@@ -37,6 +39,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
       { path: 'user', component: UserComponent}, //canActivate: [AuthGuard] },
 	  { path: 'addmemoryunit', component: AddMemoryUitComponent},
 	  { path: 'myprofile', component: UserprofileComponent},
+	  { path: 'viewunit', component: ViewUnitComponent},
       { path: '**', redirectTo: '/login' }
     ], {
         useHash: true
