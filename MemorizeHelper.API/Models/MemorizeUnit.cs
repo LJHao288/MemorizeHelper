@@ -8,9 +8,7 @@ namespace MemorizeHelper.API.Models
 
         public int Id { get; set; }
 
-        public User_ OwnerUser { get; set; }
-
-        public string Username { get; set; }
+        public string OwnerUsername { get; set; }
 
         public List<User_> SubscribedUsers { get; set; }
 

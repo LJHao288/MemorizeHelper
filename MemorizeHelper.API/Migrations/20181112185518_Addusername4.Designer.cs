@@ -3,14 +3,16 @@ using System;
 using MemorizeHelper.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MemorizeHelper.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20181112185518_Addusername4")]
+    partial class Addusername4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,6 +39,8 @@ namespace MemorizeHelper.API.Migrations
 
                     b.Property<bool>("IsPrivate");
 
+                    b.Property<int?>("OwnerUserid");
+
                     b.Property<string>("OwnerUsername");
 
                     b.Property<string>("Priority");
@@ -50,6 +54,8 @@ namespace MemorizeHelper.API.Migrations
                     b.Property<int?>("UnitContentId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerUserid");
 
                     b.HasIndex("UnitContentId");
 
@@ -118,6 +124,10 @@ namespace MemorizeHelper.API.Migrations
 
             modelBuilder.Entity("MemorizeHelper.API.Models.MemorizeUnit", b =>
                 {
+                    b.HasOne("MemorizeHelper.API.Models.User_", "OwnerUser")
+                        .WithMany()
+                        .HasForeignKey("OwnerUserid");
+
                     b.HasOne("MemorizeHelper.API.Models.Content", "UnitContent")
                         .WithMany()
                         .HasForeignKey("UnitContentId");

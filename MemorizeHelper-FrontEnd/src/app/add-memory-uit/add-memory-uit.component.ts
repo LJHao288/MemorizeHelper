@@ -46,7 +46,7 @@ export class AddMemoryUitComponent implements OnInit {
 	   
 	   this.Schedules.push({Date : Data.Schedules});
 	   
-	   this.JsonData = {Title: Data.Title, Tags : Data.Tags, IsPrivate: this.TempPrivacy, Priority : Data.Priority, SubjectName : Data.Subject,UnitContent: this.Content ,Schedules:this.Schedules, OwnerUser : {Username:this.Username} };
+	   this.JsonData = {Title: Data.Title, Tags : Data.Tags, IsPrivate: this.TempPrivacy, Priority : Data.Priority, SubjectName : Data.Subject,UnitContent: this.Content ,Schedules:this.Schedules, OwnerUsername:this.Username };
 	   
 	   const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	   

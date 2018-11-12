@@ -12,6 +12,7 @@ import { AuthGuard } from './auth.guard';
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { AddMemoryUitComponent } from './add-memory-uit/add-memory-uit.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AddMemoryUitComponent } from './add-memory-uit/add-memory-uit.component
     SignupComponent,
     UserComponent,
     AddMemoryUitComponent,
+    UserprofileComponent,
     
   ],
   imports: [
@@ -34,6 +36,7 @@ import { AddMemoryUitComponent } from './add-memory-uit/add-memory-uit.component
       { path: 'signup', component: SignupComponent, data: { animation: 'signup' } },
       { path: 'user', component: UserComponent}, //canActivate: [AuthGuard] },
 	  { path: 'addmemoryunit', component: AddMemoryUitComponent},
+	  { path: 'myprofile', component: UserprofileComponent},
       { path: '**', redirectTo: '/login' }
     ], {
         useHash: true

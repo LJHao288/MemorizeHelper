@@ -42,14 +42,14 @@ namespace MemorizeHelper.API.Controllers
             }
         }
 
-        // Returns all memory units for a user
-        [AllowAnonymous]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            var Record = await _context.MemorizeUnits.AllAsync(x => x.OwnerUser.id == id);
-            return Ok(Record);
-        }
+        //// Returns all memory units for a user
+        //[AllowAnonymous]
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Get(int id)
+        //{
+        //    var Record = await _context.MemorizeUnits.AllAsync(x => x.OwnerUser.id == id);
+        //    return Ok(Record);
+        //}
 
         // Returns a single memory unit
         [AllowAnonymous]

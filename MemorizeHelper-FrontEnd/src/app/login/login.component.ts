@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 	
    var token=JSON.stringify(data);
    console.log("data"+token);
-   this.router.navigateByUrl('/addmemoryunit');
+   this.router.navigateByUrl('/myprofile');
    }
 ,
    err =>
