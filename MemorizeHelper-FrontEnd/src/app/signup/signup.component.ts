@@ -23,7 +23,7 @@ const headers = new HttpHeaders().append('Content-Type' , 'application/json')
 //console.log(JSON.stringify({username:a, password:b}));
 //var queryHeaders = new HttpHeaders();
    // queryHeaders.append('Content-Type', 'application/json');
-var post=this.httpClient.post("http://127.0.0.1:5000/api/auth/register", parameter,{ headers: headers })
+var post=this.httpClient.post("http://localhost:44724/api/auth/register", parameter,{ headers: headers })
 
 .subscribe(data => 
   {

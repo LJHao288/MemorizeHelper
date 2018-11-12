@@ -22,13 +22,13 @@ export class LoginComponent implements OnInit {
     var parameter = JSON.stringify({username:name, password:password});
   //console.log("pap"+parameter);
   const headers = new HttpHeaders().append('Content-Type' , 'application/json')
-  var postd=this.httpClient.post("http://127.0.0.1:5000/api/auth/login", parameter,{ headers: headers })
+  var postd=this.httpClient.post("http://localhost:44724/api/auth/login", parameter,{ headers: headers })
 
   .subscribe(
     data => {
     var token=JSON.stringify(data);
    console.log("data"+token);
-   this.router.navigateByUrl('/user');
+   this.router.navigateByUrl('/addmemoryunit');
    }
 ,
    err =>

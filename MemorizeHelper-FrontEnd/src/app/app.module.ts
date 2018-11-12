@@ -10,7 +10,8 @@ import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './auth.guard';
 import { HttpModule } from '@angular/http';
- import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
+import { AddMemoryUitComponent } from './add-memory-uit/add-memory-uit.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HttpModule } from '@angular/http';
     LoginComponent,
     SignupComponent,
     UserComponent,
+    AddMemoryUitComponent,
     
   ],
   imports: [
@@ -31,6 +33,7 @@ import { HttpModule } from '@angular/http';
       { path: 'login', component: LoginComponent, data: { animation: 'login' } },
       { path: 'signup', component: SignupComponent, data: { animation: 'signup' } },
       { path: 'user', component: UserComponent}, //canActivate: [AuthGuard] },
+	  { path: 'addmemoryunit', component: AddMemoryUitComponent},
       { path: '**', redirectTo: '/login' }
     ], {
         useHash: true

@@ -1,0 +1,70 @@
+<div class="login-form-container">
+  <div class="form-container">
+    <form #AddForm="ngForm" (ngSubmit)="onFormSubmit(AddForm.value)" class="form">
+      <h4 class="form-header">
+        Add New Unit
+      </h4>
+      
+	   <div class="control">
+        <label for="Title">Title</label>
+        <input ngModel #Title="ngModel" name="Title" required id="Title" type="text">
+        <div class="form-error" *ngIf="Title.touched && !Title.valid">
+          <div *ngIf="Title.errors.required">
+            Title is required
+          </div>
+        </div>
+      </div>
+	  
+	  
+	  <div class="control">
+        <label for="Subject">Subject</label>
+        <input ngModel #Subject="ngModel" name="Subject" type="text">
+      </div>
+	  
+	  <div class="control">
+        <label for="Priority">Priority</label>
+        <select ngModel [(ngModel)]='PriorityOptions[0]' #Priority="ngModel" name="Priority" style="color:#000000">
+		
+		<option [value]="x" *ngFor="let x of PriorityOptions">{{x}}</option>
+		
+		</select>
+		
+      </div>
+	  
+	  
+	  <div class="control">
+        <label for="Privacy">Privacy</label>
+        <select ngModel [(ngModel)]='PrivacyOptions[0]' #Privacy="ngModel" name="Privacy" style="color:#000000">
+		
+		<option [value]="x" *ngFor="let x of PrivacyOptions">{{x}}</option>
+		
+		</select>
+		
+      </div>
+	  
+	 
+	  <div class="control">
+        <label for="Tags">Tags</label>
+        <input ngModel #Tags="ngModel" name="Tags" type="text">
+      </div>
+	  
+	  
+	  <div class="control">
+        <label for="Schedules">Schedules</label>
+        <input ngModel #Schedules="ngModel" name="Schedules" type="datetime-local">
+      </div>
+	  
+	  
+	  <div class="control">
+        <label for="Content">Content</label>
+        <textarea ngModel #Content="ngModel" name="Content" type="text" required id="Content"></textarea>
+      </div>
+	  
+	  
+	  <div class="control">
+        <button [disabled]="AddForm.invalid" class="btn" type="submit">Add Unit</button>
+      </div>
+	 
+    </form>
+  </div>
+</div>
