@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
@@ -25,12 +26,19 @@ export class AddMemoryUitComponent implements OnInit {
   
   Username = "";
   
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private router: Router) { }
+  
   
   ngOnInit() {
 	  
 	  
 	  
+  }
+  
+  Back(){
+	  
+	  this.router.navigateByUrl('/myprofile');
+	
   }
   
   onFormSubmit(Data) 

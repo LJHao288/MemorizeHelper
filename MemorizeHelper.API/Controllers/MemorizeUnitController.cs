@@ -42,24 +42,25 @@ namespace MemorizeHelper.API.Controllers
             }
         }
 
-        //// Returns all memory units for a user
-        //[AllowAnonymous]
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Get(int id)
-        //{
-        //    var Record = await _context.MemorizeUnits.AllAsync(x => x.OwnerUser.id == id);
-        //    return Ok(Record);
-        //}
-
-        // Returns a single memory unit
+        // Returns all memory units for a user
         [AllowAnonymous]
-        [HttpGet("{id}")]
-        [ActionName("GetSingleUnit")]
-        public async Task<IActionResult> GetSingleUnit(int id)
+        [HttpGet("{username}")]
+        [ActionName("GetForUser")]
+        public async Task<IActionResult> Get(string username)
         {
-            var Record = await _context.MemorizeUnits.FirstOrDefaultAsync(x => x.Id == id);
+            var Record = _context.MemorizeUnits.Where(x => x.OwnerUsername == username).ToList();
             return Ok(Record);
         }
+
+        // Returns a single memory unit
+        //[AllowAnonymous]
+        //[HttpGet("{id}")]
+        //[ActionName("GetSingleUnit")]
+        //public async Task<IActionResult> GetSingleUnit(int id)
+        //{
+        //    var Record = await _context.MemorizeUnits.FirstOrDefaultAsync(x => x.Id == id);
+        //    return Ok(Record);
+        //}
 
         //Edit MemoryUnit
         [HttpPut("{NewRec}")]
