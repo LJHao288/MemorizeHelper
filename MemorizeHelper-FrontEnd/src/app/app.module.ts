@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { AddMemoryUitComponent } from './add-memory-uit/add-memory-uit.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { ViewUnitComponent } from './view-unit/view-unit.component';
+import { EditUnitComponent } from './edit-unit/edit-unit.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ViewUnitComponent } from './view-unit/view-unit.component';
     AddMemoryUitComponent,
     UserprofileComponent,
     ViewUnitComponent,
+    EditUnitComponent,
     
   ],
   imports: [
