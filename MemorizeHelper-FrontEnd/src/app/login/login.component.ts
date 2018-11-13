@@ -28,15 +28,15 @@ export class LoginComponent implements OnInit {
   var postd=this.httpClient.post("http://localhost:44724/api/auth/login", parameter,{ headers: headers })
 
   .subscribe(
-    data => {
+    Data => {
 		
 	
 	
 	localStorage.setItem('isLoggedIn', "true");
 	
-	localStorage.setItem('Username', data.username);
+	localStorage.setItem('Username', Data.username);
 	
-   var token=JSON.stringify(data);
+   var token=JSON.stringify(Data);
    console.log("data"+token);
    this.router.navigateByUrl('/myprofile');
    }

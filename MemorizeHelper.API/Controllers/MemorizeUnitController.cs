@@ -45,23 +45,33 @@ namespace MemorizeHelper.API.Controllers
             }
         }
 
-        // Returns all memory units for a user, Get Username from token
+        [AllowAnonymous]
         [HttpGet("{username}")]
         [ActionName("GetForUser")]
-        public async Task<IActionResult> Get([FromQuery] MemorizeUnitParams memorizeUnitParams)
+        public async Task<IActionResult> Get(string username)
         {
-            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-            var userFromRepo = await _repo.GetUser(currentUserId);
-
-            memorizeUnitParams.Username = userFromRepo.Username;
-            var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
-
-            Response.AddPagination(MemorizeUnits.CurrentPage, MemorizeUnits.TotalPages, MemorizeUnits.PageSize,
-                MemorizeUnits.TotalCount);
-
-            return Ok(MemorizeUnits);
+            var Record = _context.MemorizeUnits.Where(x => x.OwnerUsername == username).ToList();
+            return Ok(Record);
         }
+
+        //// Returns all memory units for a user, Get Username from token
+        //[AllowAnonymous]
+        //[HttpGet("{username}")]
+        //[ActionName("GetForUser")]
+        //public async Task<IActionResult> Get([FromQuery] MemorizeUnitParams memorizeUnitParams)
+        //{
+        //    var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+        //    var userFromRepo = await _repo.GetUser(currentUserId);
+
+        //    memorizeUnitParams.Username = userFromRepo.Username;
+        //    var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
+
+        //    Response.AddPagination(MemorizeUnits.CurrentPage, MemorizeUnits.TotalPages, MemorizeUnits.PageSize,
+        //        MemorizeUnits.TotalCount);
+
+        //    return Ok(MemorizeUnits);
+        //}
 
         // Returns a single memory unit
         //[AllowAnonymous]
