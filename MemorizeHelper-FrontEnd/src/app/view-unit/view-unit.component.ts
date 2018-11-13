@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-view-unit',
@@ -24,7 +26,10 @@ export class ViewUnitComponent implements OnInit {
   
   Public = "Public";
   
-  constructor() { }
+  Content = "";
+  
+  constructor(private router: Router) { }
+
 
   ngOnInit() {
 	  
@@ -40,8 +45,14 @@ export class ViewUnitComponent implements OnInit {
 	  
 	  this.Tags = this.CurrentUnit.tags;
 	  
+	  this.Content = this.CurrentUnit.stringContent;
 	  
+  }
+  
+   Back(){
 	  
+	  this.router.navigateByUrl('/myprofile');
+	
   }
 
 }

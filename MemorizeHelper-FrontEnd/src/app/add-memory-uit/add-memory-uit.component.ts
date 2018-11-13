@@ -17,9 +17,7 @@ export class AddMemoryUitComponent implements OnInit {
   DatesList = [];
   
   TempPrivacy = false;
-  
-  Content = {};
-  
+    
   JsonData = {};
   
   Schedules = [];
@@ -41,6 +39,7 @@ export class AddMemoryUitComponent implements OnInit {
 	
   }
   
+  
   onFormSubmit(Data) 
   {
 	  
@@ -49,12 +48,10 @@ export class AddMemoryUitComponent implements OnInit {
 	   console.log(this.Username);
 	   
 	   this.TempPrivacy = ("Private" == Data.Privacy);
-	   
-	   this.Content = {Text : Data.Content};
-	   
+	   	   
 	   this.Schedules.push({Date : Data.Schedules});
 	   
-	   this.JsonData = {Title: Data.Title, Tags : Data.Tags, IsPrivate: this.TempPrivacy, Priority : Data.Priority, SubjectName : Data.Subject,UnitContent: this.Content ,Schedules:this.Schedules, OwnerUsername:this.Username };
+	   this.JsonData = {Title: Data.Title, Tags : Data.Tags, IsPrivate: this.TempPrivacy, Priority : Data.Priority, SubjectName : Data.Subject, StringContent: Data.Content ,Schedules:this.Schedules, OwnerUsername:this.Username };
 	   
 	   const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	   
