@@ -15,7 +15,7 @@ export class UserprofileComponent implements OnInit {
 
   Username = "";
   
-  AllData = [];
+  AllData : any = [];
   
   GetAllData(){
 	 

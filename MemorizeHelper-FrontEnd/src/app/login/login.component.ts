@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   var postd=this.httpClient.post("http://localhost:44724/api/auth/login", parameter,{ headers: headers })
 
   .subscribe(
-    Data => {
+    (Data : any) => {
 		
 	
 	

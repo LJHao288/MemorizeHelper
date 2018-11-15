@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class ViewUnitComponent implements OnInit {
 
 
-  CurrentUnit = {};
+  CurrentUnit : any = {};
   
   Title = "";
   
