@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { HttpClientModule }    from '@angular/common/http';
+import {Popup} from 'ng2-opd-popup';
 
 @Component({
   selector: 'app-userprofile',
@@ -11,7 +12,7 @@ import { HttpClientModule }    from '@angular/common/http';
 export class UserprofileComponent implements OnInit {
 
 
-  constructor(private httpClient:HttpClient,private router: Router) { }
+  constructor(private httpClient:HttpClient,private router: Router, private popup: Popup) { }
 
   Username = "";
   
@@ -21,7 +22,7 @@ export class UserprofileComponent implements OnInit {
 	 
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	 
-	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/"+this.Username).subscribe(data => {
+	 this.httpClient.get("http://localhost:5000/api/MemorizeUnit/"+this.Username).subscribe(data => {
 		 
      this.AllData = data;
 	 
@@ -65,6 +66,24 @@ export class UserprofileComponent implements OnInit {
 	  localStorage.setItem('CurrentUnit', JSON.stringify(X));
 	  this.router.navigateByUrl('/viewunit');
   }
+
+  ClickConfirmPopup(){
+    this.popup.options = {
+      confirmBtnContent: "Yes", 
+      cancleBtnContent: "No", 
+      color: "#17a598",
+      header: "Confirm Deletion"
+    }
+    
+    this.popup.show();
+  }
   
+  ConfirmDeleteEvent(){
+    // this.router.navigateByUrl('/deletememoryunit');
+  }
+
+  CancelDeleteEvent(){
+    
+  }
 
 }

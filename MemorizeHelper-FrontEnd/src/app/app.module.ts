@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -15,6 +16,7 @@ import { AddMemoryUitComponent } from './add-memory-uit/add-memory-uit.component
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { ViewUnitComponent } from './view-unit/view-unit.component';
 import { EditUnitComponent } from './edit-unit/edit-unit.component';
+import {PopupModule} from 'ng2-opd-popup';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { EditUnitComponent } from './edit-unit/edit-unit.component';
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
+    NgbModule.forRoot(),
+    PopupModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: '/login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent, data: { animation: 'login' } },
