@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MemorizeHelper.API.Helpers;
@@ -26,7 +27,18 @@ namespace MemorizeHelper.API.Data
             if(!string.IsNullOrEmpty(memorizeUnitParams.Username)){
                 MemorizeUnits = MemorizeUnits.Where(x=> x.OwnerUsername==memorizeUnitParams.Username);
             }else{
-                MemorizeUnits = MemorizeUnits.Where(x=> x.IsPrivate==false);
+                if(memorizeUnitParams.IsGetTaskToday){
+                    return null;
+                }else{
+                    MemorizeUnits = MemorizeUnits.Where(x=> x.IsPrivate==false);
+                }
+                
+            }
+
+            if(memorizeUnitParams.IsGetTaskToday){
+                //get review task today
+                MemorizeUnits = MemorizeUnits.Where(x => x.Schedules.Any(y=>y.Date.Date==DateTime.Today.Date));
+
             }
 
             if(!string.IsNullOrEmpty(memorizeUnitParams.SubjectNameSearch)){

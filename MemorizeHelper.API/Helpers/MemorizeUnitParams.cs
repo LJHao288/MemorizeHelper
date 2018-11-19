@@ -14,5 +14,7 @@ namespace MemorizeHelper.API.Helpers
         public string TitleSearch { get; set; }
         public string SubjectNameSearch { get; set; }
         public string TagsSearch { get; set; }
+
+        public bool IsGetTaskToday{ get; set; }
     }
 }

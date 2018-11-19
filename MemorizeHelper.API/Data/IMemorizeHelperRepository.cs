@@ -8,6 +8,7 @@ namespace MemorizeHelper.API.Data
     {
         Task<User> GetUser(int id);
         Task<PagedList<MemorizeUnit>> GetMemorizeUnits(MemorizeUnitParams memorizeUnitParams);
+
     } 
 
 }

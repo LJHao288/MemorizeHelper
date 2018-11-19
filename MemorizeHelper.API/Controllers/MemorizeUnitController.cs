@@ -54,24 +54,7 @@ namespace MemorizeHelper.API.Controllers
             return Ok(Record);
         }
 
-        // Returns all memory units for a user, Get Username from token
-        [AllowAnonymous]
-        [HttpGet("{username}")]
-        [ActionName("GetForUserInPage")]
-        public async Task<IActionResult> Get([FromQuery] MemorizeUnitParams memorizeUnitParams)
-        {
-           var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-           var userFromRepo = await _repo.GetUser(currentUserId);
-
-           memorizeUnitParams.Username = userFromRepo.Username;
-           var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
-
-           Response.AddPagination(MemorizeUnits.CurrentPage, MemorizeUnits.TotalPages, MemorizeUnits.PageSize,
-               MemorizeUnits.TotalCount);
-
-           return Ok(MemorizeUnits);
-        }
+       
 
         // Returns a single memory unit
         //[AllowAnonymous]
@@ -113,21 +96,71 @@ namespace MemorizeHelper.API.Controllers
         }
 
 
-
+        //get all public in pages
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("GetAllPublicInPage")]
         public async Task<IActionResult> GetAll([FromQuery] MemorizeUnitParams memorizeUnitParams)
         {
-            var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
+            //set IsGetTask para
+            memorizeUnitParams.IsGetTaskToday=false;
 
+            //get units
+            var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
+            //add paination header to response
             Response.AddPagination(MemorizeUnits.CurrentPage, MemorizeUnits.TotalPages, MemorizeUnits.PageSize,
                 MemorizeUnits.TotalCount);
             return Ok(MemorizeUnits);
         }
+        // Returns all memory units for a user, Get Username from token
+        [AllowAnonymous]
+        [HttpGet("GetForUserInPage")]
+        public async Task<IActionResult> GetForUserInPage([FromQuery] MemorizeUnitParams memorizeUnitParams)
+        {
 
+            //set username para
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _repo.GetUser(currentUserId);
+            memorizeUnitParams.Username = userFromRepo.Username;
+
+            //test
+            //memorizeUnitParams.Username = "abdullah";
+
+            //set IsGetTask para
+            memorizeUnitParams.IsGetTaskToday=false;
+
+            //get units
+            var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
+            //add pagination header to response
+            Response.AddPagination(MemorizeUnits.CurrentPage, MemorizeUnits.TotalPages, MemorizeUnits.PageSize,
+               MemorizeUnits.TotalCount);
+
+            return Ok(MemorizeUnits);
+        }
 
         
+        //Get the unit should review today for a user
+        [AllowAnonymous]
+        [HttpGet("GetReviewTaskToday")]
+        public async Task<IActionResult> GetReviewTaskToday([FromQuery] MemorizeUnitParams memorizeUnitParams)
+        {
+            //set username para
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _repo.GetUser(currentUserId);
+            memorizeUnitParams.Username = userFromRepo.Username;
 
+            //test
+            //memorizeUnitParams.Username = "abdullah";
+
+            //set IsGetTask para
+            memorizeUnitParams.IsGetTaskToday=true;
+            
+            //get units
+            var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
+  
+            Response.AddPagination(MemorizeUnits.CurrentPage, MemorizeUnits.TotalPages, MemorizeUnits.PageSize,
+                MemorizeUnits.TotalCount);
+            return Ok(MemorizeUnits);
+        }
 
         
 
