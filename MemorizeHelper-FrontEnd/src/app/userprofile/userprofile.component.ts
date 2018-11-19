@@ -22,7 +22,7 @@ export class UserprofileComponent implements OnInit {
 	 
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	 
-	 this.httpClient.get("http://localhost:5000/api/MemorizeUnit/"+this.Username).subscribe(data => {
+	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/"+this.Username).subscribe(data => {
 		 
      this.AllData = data;
 	 
