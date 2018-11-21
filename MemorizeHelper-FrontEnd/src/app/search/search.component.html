@@ -1,0 +1,34 @@
+<div class="login-form-container">
+  <div class="form-container">
+    <form #AddForm="ngForm" (ngSubmit)="onFormSubmit(AddForm.value)" class="form">
+      <h4 class="form-header">
+      {{Title}}
+      </h4>
+      
+      <div class="control">
+        <label for="Search" >Search</label>
+        <input ngModel id="Searchtext" name="Searchtext" type="text">
+             </div>
+      <div class="control">
+        <button class="btn" type="button" (click)="SearchNow()">Search Now</button>
+      </div> 
+      <div class="row" *ngFor="let X of AllData">
+
+        <div class="col-md-3"><p> {{X.title}} </p></div>
+
+<div class="col-md-3"><button (click)="View(X)" type="button" class="btn btn-default ">View</button></div>
+
+
+<div class="col-md-3"><button type="button" class="btn btn-default">Edit</button></div>
+
+        <div class="col-md-3"><button type="button"  class="btn btn-default ">Delete</button></div>
+
+</div>
+	  <div class="control">
+        <button class="btn" type="button" (click)="Back()">Back</button>
+      </div> 
+	  
+	
+    </form>
+  </div>
+</div>

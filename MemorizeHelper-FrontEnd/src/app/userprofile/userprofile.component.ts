@@ -51,7 +51,10 @@ export class UserprofileComponent implements OnInit {
 	  
 	  this.router.navigateByUrl('/addmemoryunit');
   }
-  
+  Search() {
+	  
+	  this.router.navigateByUrl('/search');
+  }
   LogOut() {
 	  
 	  this.router.navigateByUrl('/login');

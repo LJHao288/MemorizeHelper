@@ -16,6 +16,7 @@ import { AddMemoryUitComponent } from './add-memory-uit/add-memory-uit.component
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { ViewUnitComponent } from './view-unit/view-unit.component';
 import { EditUnitComponent } from './edit-unit/edit-unit.component';
+import { SearchComponent } from './search/search.component';
 import {PopupModule} from 'ng2-opd-popup';
 
 @NgModule({
@@ -28,6 +29,7 @@ import {PopupModule} from 'ng2-opd-popup';
     UserprofileComponent,
     ViewUnitComponent,
     EditUnitComponent,
+    SearchComponent,
     
   ],
   imports: [
@@ -46,6 +48,7 @@ import {PopupModule} from 'ng2-opd-popup';
 	  { path: 'addmemoryunit', component: AddMemoryUitComponent},
 	  { path: 'myprofile', component: UserprofileComponent},
 	  { path: 'viewunit', component: ViewUnitComponent},
+    { path: 'search', component: SearchComponent},
       { path: '**', redirectTo: '/login' }
     ], {
         useHash: true
