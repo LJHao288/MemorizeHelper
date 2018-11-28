@@ -67,6 +67,7 @@ namespace MemorizeHelper.API.Controllers
         //}
 
         //Edit MemoryUnit
+        [AllowAnonymous]
         [HttpPut("{NewRec}")]
         public void Put([FromBody] Models.MemorizeUnit NewRec)
         {
@@ -83,6 +84,7 @@ namespace MemorizeHelper.API.Controllers
         }
 
         // Delete Unit
+        [AllowAnonymous]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
