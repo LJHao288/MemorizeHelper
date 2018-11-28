@@ -163,8 +163,25 @@ namespace MemorizeHelper.API.Controllers
         }
 
         
+        //Quick add, copy others Memorize Unit
+        [AllowAnonymous]
+        [HttpPost("Copy/{id}")]
+        public async void Copy([FromQuery] int id)
+        {
 
-        
+            //get the login user
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userFromRepo = await _repo.GetUser(currentUserId);
+            var LoginUsername = userFromRepo.Username;
+
+            //get the Memorize unit
+
+
+            //reset the property and save
+
+            //deal with counter
+           
+        }
 
 
         
