@@ -12,5 +12,7 @@ namespace MemorizeHelper.API.Data
         public DbSet<Value> Values { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<MemorizeUnit> MemorizeUnits { get; set; }
+
+        public DbSet<CounterUnit> CounterUnits { get; set; }
     }
 }

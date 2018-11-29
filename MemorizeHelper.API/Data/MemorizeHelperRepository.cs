@@ -5,6 +5,7 @@ using MemorizeHelper.API.Helpers;
 using MemorizeHelper.API.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace MemorizeHelper.API.Data
 {
     public class MemorizeHelperRepository : IMemorizeHelperRepository
@@ -20,6 +21,21 @@ namespace MemorizeHelper.API.Data
 
             return user;
         }
+
+        public async Task<CounterUnit> GetCounterUnitByMemorizeUnitId(int id)
+        {
+            var counterUnit = await _context.CounterUnits.FirstOrDefaultAsync(u => u.MemorizeUnitId == id);
+
+            return counterUnit;
+        }
+
+        public async Task<MemorizeUnit> GetMemorizeUnitNoTracking(int id)
+        {
+            var memorizeUnit = await _context.MemorizeUnits.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+
+            return memorizeUnit;
+        }
+
         public async Task<PagedList<MemorizeUnit>> GetMemorizeUnits(MemorizeUnitParams memorizeUnitParams)
         {
             var MemorizeUnits = _context.MemorizeUnits.AsQueryable();
@@ -54,5 +70,19 @@ namespace MemorizeHelper.API.Data
             return await PagedList<MemorizeUnit>.CreateAsync(MemorizeUnits,memorizeUnitParams.PageNumber,memorizeUnitParams.PageSize);
         }
 
+        public void Add<T>(T entity) where T : class
+        {
+            _context.Add(entity);
+        }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            _context.Remove(entity);        
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() >0;
+        }
     }
 }
