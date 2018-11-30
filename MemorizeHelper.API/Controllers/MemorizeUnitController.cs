@@ -83,8 +83,7 @@ namespace MemorizeHelper.API.Controllers
 
         //Edit MemoryUnit
         [AllowAnonymous]
-        [HttpPut("{NewRec}")]
-        public void Put([FromBody] Models.MemorizeUnit NewRec)
+        public void Put(Models.MemorizeUnit NewRec)
         {
             try
             {
