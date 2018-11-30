@@ -10,7 +10,7 @@ using MemorizeHelper.API.Migrations;
 using MemorizeHelper.API.Helpers;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Cors;
-
+using MemorizeHelper.API.Models;
 
 namespace MemorizeHelper.API.Controllers
 {
@@ -83,7 +83,8 @@ namespace MemorizeHelper.API.Controllers
 
         //Edit MemoryUnit
         [AllowAnonymous]
-        public string Put(Models.MemorizeUnit NewRec)
+        [HttpPut("{NewRec}")]
+        public void Put([FromBody] Models.MemorizeUnit NewRec)
         {
             try
             {
@@ -93,10 +94,8 @@ namespace MemorizeHelper.API.Controllers
             }
             catch (Exception e)
             {
-                return e.Message;
             }
 
-            return NewRec.Id.ToString();
         }
 
         // Delete Unit
@@ -209,16 +208,33 @@ namespace MemorizeHelper.API.Controllers
         {
 
             //get the login user
-            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var userFromRepo = await _repo.GetUser(currentUserId);
-            var LoginUsername = userFromRepo.Username;
+            //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            //var userFromRepo = await _repo.GetUser(currentUserId);
+            //var LoginUsername = userFromRepo.Username;
 
-            //get the Memorize unit
+            //test
+            var LoginUsername = "Li";
 
+            //get the original Memorize unit
+            var newMemorizeUnit = await _repo.GetMemorizeUnitNoTracking(id);
+            var originalMemorizeUnitId = newMemorizeUnit.Id;
 
             //reset the property and save
+            newMemorizeUnit.Id =0;
+            newMemorizeUnit.OwnerUsername = LoginUsername;
+            _repo.Add<MemorizeHelper.API.Models.MemorizeUnit>(newMemorizeUnit);
+            
 
-            //deal with counter
+         
+            MemorizeHelper.API.Models.CounterUnit counterUnit = _repo.GetCounterUnitByMemorizeUnitId(originalMemorizeUnitId).Result;
+            if (counterUnit == null){
+                var newCounterUnit = new MemorizeHelper.API.Models.CounterUnit{MemorizeUnitId=originalMemorizeUnitId,Count=1};
+                _repo.Add<MemorizeHelper.API.Models.CounterUnit>(newCounterUnit);
+            }else{
+                counterUnit.Count +=1;
+
+            }
+            await _repo.SaveAll();
 
         }
 

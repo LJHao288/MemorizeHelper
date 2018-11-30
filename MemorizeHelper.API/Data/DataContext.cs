@@ -15,5 +15,8 @@ namespace MemorizeHelper.API.Data
         public DbSet<MemorizeUnit> MemorizeUnits { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
 
+
+        public DbSet<CounterUnit> CounterUnits { get; set; }
+
     }
 }
