@@ -8,6 +8,12 @@
 
 	  
 	  <div class="control">
+        <label for="Subject">Creation Date</label>
+        <input ngModel [(ngModel)]='CreationDate' name="CreationDate" type="text" readonly>
+      </div>
+	  
+	  
+	  <div class="control">
         <label for="Subject">Subject</label>
         <input ngModel [(ngModel)]='Subject' name="Subject" type="text" readonly>
       </div>
@@ -32,6 +38,23 @@
         <label for="Tags">Tags</label>
         <input ngModel [(ngModel)]='Tags' name="Tags" type="text" readonly>
       </div>
+	  
+	  <div class="control">
+        
+		<label for="Schedules">Schedules</label>
+        
+		<br>
+		
+	   <div class="row" *ngFor="let X of Dates">
+        
+          <div>&nbsp; &nbsp; {{X.date}} 
+		  
+	    </div>
+		</div>
+	  
+	   </div>
+	  
+	  
 	  
 	   <div class="control">
         <label for="Content">Content</label>

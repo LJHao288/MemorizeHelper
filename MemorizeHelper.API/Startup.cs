@@ -60,9 +60,16 @@ namespace MemorizeHelper.API
             }
 
             //app.UseHttpsRedirection();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseAuthentication();
+            //app.UseCors();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200"));
+            //app.UseAuthentication();
             app.UseMvc();
+            
+      
+
+
         }
+
+        
     }
 }

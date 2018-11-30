@@ -1,3 +1,101 @@
-<p>
-  edit-unit works!
-</p>
+<div class="login-form-container">
+  <div class="form-container">
+    <form #AddForm="ngForm" (ngSubmit)="onFormSubmit(AddForm.value)" class="form">
+      <h4 class="form-header">
+        Edit Unit
+      </h4>
+       
+	   
+	   
+	   
+	   <div class="control">
+        <label for="Title">Title</label>
+        <input [(ngModel)]='TitleVal' ngModel #Title="ngModel" name="Title" required id="Title" type="text">
+        <div class="form-error" *ngIf="Title.touched && !Title.valid">
+          <div *ngIf="Title.errors.required">
+            Title is required
+          </div>
+        </div>
+      </div>
+	  
+	  
+	  <div class="control">
+        <label for="Subject">Subject</label>
+        <input [(ngModel)]='SubjectVal' ngModel #Subject="ngModel" name="Subject" type="text">
+      </div>
+	  
+	  <div class="control">
+        <label for="Priority">Priority</label>
+        <select ngModel [(ngModel)]='PriorityVal' #Priority="ngModel" name="Priority" style="color:#000000">
+		
+		<option [value]="x" *ngFor="let x of PriorityOptions">{{x}}</option>
+		
+		</select>
+		
+      </div>
+	  
+	  
+	  <div class="control">
+        <label for="Privacy">Privacy</label>
+        <select ngModel [(ngModel)]='PrivacyVal' #Privacy="ngModel" name="Privacy" style="color:#000000">
+		
+		<option [value]="x" *ngFor="let x of PrivacyOptions">{{x}}</option>
+		
+		</select>
+		
+      </div>
+	  
+	 
+	  <div class="control">
+        <label for="Tags">Tags</label>
+        <input ngModel [(ngModel)]='TagsVal' #Tags="ngModel" name="Tags" type="text">
+      </div>
+	  
+	  
+	  <div class="control">
+        
+		<label for="Schedules">Schedules</label>
+        
+		<input ngModel #DDate="ngModel" name="Schedules" type="datetime-local" (ngModelChange)="Chnged()">
+		
+		
+		<br>
+		
+		<button class="btn" type="button" (click)="AddDate(DDate);" [disabled]="ValidData">Add Date</button>
+		
+	    <br>
+	  
+	  
+	  
+	   <div class="row" *ngFor="let X of Dates; index as i">
+        
+          <div>&nbsp; &nbsp; {{X.date}} 
+		  
+		  <button type="button" class="close" (click)="DeleteDate(i)">×</button>
+       
+	    </div>
+		</div>
+	  
+	   </div>
+	   
+	   
+	   
+	  <div class="control">
+        <label for="Content">Content</label>
+        <textarea [(ngModel)]='ContentVal' ngModel #Content="ngModel" name="Content" type="text" required id="Content"></textarea>
+      </div>
+	  
+	  
+	  <div class="control">
+        <button [disabled]="AddForm.invalid" class="btn" type="submit">Save</button>
+      </div>
+	  
+      
+
+	  <div class="control">
+        <button class="btn" type="button" (click)="Back()">Back</button>
+      </div> 
+	  
+    </form>
+  </div>
+</div>

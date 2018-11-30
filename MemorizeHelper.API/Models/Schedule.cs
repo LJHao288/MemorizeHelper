@@ -9,5 +9,6 @@ namespace MemorizeHelper.API.Models
     {
         public int Id { get; set; }
         public DateTime Date { set; get; }
+        public virtual MemorizeUnit Unit { get; set; }
     }
 }

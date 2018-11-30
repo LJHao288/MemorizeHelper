@@ -48,7 +48,8 @@ import {PopupModule} from 'ng2-opd-popup';
 	  { path: 'addmemoryunit', component: AddMemoryUitComponent},
 	  { path: 'myprofile', component: UserprofileComponent},
 	  { path: 'viewunit', component: ViewUnitComponent},
-    { path: 'search', component: SearchComponent},
+	  { path: 'editunit', component: EditUnitComponent},
+      { path: 'search', component: SearchComponent},
       { path: '**', redirectTo: '/login' }
     ], {
         useHash: true

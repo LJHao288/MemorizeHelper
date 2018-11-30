@@ -18,6 +18,10 @@ export class UserprofileComponent implements OnInit {
   
   AllData : any = [];
   
+  Header = {};
+  
+  CurrentX = null;
+  
   GetAllData(){
 	 
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
@@ -25,10 +29,6 @@ export class UserprofileComponent implements OnInit {
 	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/"+this.Username).subscribe(data => {
 		 
      this.AllData = data;
-	 
-	 alert("Data Loaded");
-	 
-	  console.log(this.AllData);
 	 
 	 },err =>{
 		 
@@ -44,7 +44,6 @@ export class UserprofileComponent implements OnInit {
 	  
 	  this.GetAllData();
 	  
-	 
   }
   
   AddNew() {
@@ -69,8 +68,14 @@ export class UserprofileComponent implements OnInit {
 	  localStorage.setItem('CurrentUnit', JSON.stringify(X));
 	  this.router.navigateByUrl('/viewunit');
   }
+  
+  Edit(X)
+  {
+	  localStorage.setItem('CurrentUnit', JSON.stringify(X));
+	  this.router.navigateByUrl('/editunit');
+  }
 
-  ClickConfirmPopup(){
+  ClickConfirmPopup(X){
     this.popup.options = {
       confirmBtnContent: "Yes", 
       cancleBtnContent: "No", 
@@ -78,15 +83,37 @@ export class UserprofileComponent implements OnInit {
       header: "Confirm Deletion"
     }
     
+	this.CurrentX = X;
+	
     this.popup.show();
   }
   
   ConfirmDeleteEvent(){
-    // this.router.navigateByUrl('/deletememoryunit');
+    
+	
+	
+                  
+	
+	this.httpClient.delete("http://localhost:44724/api/MemorizeUnit/"+this.CurrentX.id,{responseType: 'text'}).subscribe(data => {
+		 
+		 this.GetAllData();
+		 this.popup.hide();
+		 
+	 },err =>{
+		 
+		 alert("Please try again");
+	 });
+	 
+	
+	 
+	 
+	
   }
 
   CancelDeleteEvent(){
-    
+	  
+	  this.popup.hide();
+	 
   }
 
 }

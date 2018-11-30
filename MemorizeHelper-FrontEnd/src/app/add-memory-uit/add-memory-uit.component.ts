@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
+
 @Component({
   selector: 'app-add-memory-uit',
   templateUrl: './add-memory-uit.component.html',
@@ -20,9 +21,11 @@ export class AddMemoryUitComponent implements OnInit {
     
   JsonData = {};
   
-  Schedules = [];
-  
+  SchedulesArray = [];
+   
   Username = "";
+  
+  ValidData = true;
   
   constructor(private httpClient:HttpClient,private router: Router) { }
   
@@ -39,6 +42,25 @@ export class AddMemoryUitComponent implements OnInit {
 	
   }
   
+  DeleteDate(i)
+  {
+	  this.SchedulesArray.splice(i, 1);
+  }
+  
+  
+  AddDate(D)
+  {
+	  
+	  this.SchedulesArray.push({date : D.viewModel});
+	  
+	 
+	  this.ValidData = true;
+  }
+  
+  Chnged()
+  {
+	  this.ValidData = false;
+  }
   
   onFormSubmit(Data) 
   {
@@ -49,9 +71,7 @@ export class AddMemoryUitComponent implements OnInit {
 	   
 	   this.TempPrivacy = ("Private" == Data.Privacy);
 	   	   
-	   this.Schedules.push({Date : Data.Schedules});
-	   
-	   this.JsonData = {Title: Data.Title, Tags : Data.Tags, IsPrivate: this.TempPrivacy, Priority : Data.Priority, SubjectName : Data.Subject, StringContent: Data.Content ,Schedules:this.Schedules, OwnerUsername:this.Username };
+	   this.JsonData = {Title: Data.Title, Tags : Data.Tags, IsPrivate: this.TempPrivacy, Priority : Data.Priority, SubjectName : Data.Subject, StringContent: Data.Content ,Schedules:this.SchedulesArray, OwnerUsername:this.Username };
 	   
 	   const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	   
@@ -60,10 +80,7 @@ export class AddMemoryUitComponent implements OnInit {
 	   var post = this.httpClient.post('http://localhost:44724/api/MemorizeUnit', this.JsonData ,{ headers: Headers }).subscribe(data => 
 	   {
 		   
-		   
-		   alert("Done.");
-		   
-		   
+		   this.router.navigateByUrl('/myprofile');
 		   
 		   },err => {
 			   
@@ -71,7 +88,8 @@ export class AddMemoryUitComponent implements OnInit {
 			   
 			   alert(error);
 			   
-			   });  
+			   });
+			      
   }
 
 }

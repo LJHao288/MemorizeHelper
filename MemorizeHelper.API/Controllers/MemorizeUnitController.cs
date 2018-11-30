@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using MemorizeHelper.API.Migrations;
 using MemorizeHelper.API.Helpers;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Cors;
+
 
 namespace MemorizeHelper.API.Controllers
 {
@@ -19,7 +21,7 @@ namespace MemorizeHelper.API.Controllers
     {
         private readonly DataContext _context;
         private readonly IMemorizeHelperRepository _repo;
-        public MemorizeUnitController(IMemorizeHelperRepository repo,DataContext context)
+        public MemorizeUnitController(IMemorizeHelperRepository repo, DataContext context)
         {
             _context = context;
             _repo = repo;
@@ -50,11 +52,24 @@ namespace MemorizeHelper.API.Controllers
         [ActionName("GetForUser")]
         public async Task<IActionResult> Get(string username)
         {
+
             var Record = _context.MemorizeUnits.Where(x => x.OwnerUsername == username).ToList();
             return Ok(Record);
         }
 
-       
+
+        [AllowAnonymous]
+        [HttpGet("GetSchedule/{Id}")]
+        public async Task<IActionResult> GetSchedule(int Id)
+        {
+
+            var Records =  _context.Schedule.Where(x => x.Unit.Id == Id).ToList();
+
+            return Ok(Records);
+        }
+
+
+
 
         // Returns a single memory unit
         //[AllowAnonymous]
@@ -67,32 +82,56 @@ namespace MemorizeHelper.API.Controllers
         //}
 
         //Edit MemoryUnit
-        [HttpPut("{NewRec}")]
-        public void Put([FromBody] Models.MemorizeUnit NewRec)
+        [AllowAnonymous]
+        public string Put(Models.MemorizeUnit NewRec)
         {
             try
             {
-                _context.MemorizeUnits.Attach(NewRec);
-                _context.Entry(NewRec).State = EntityState.Modified;
-                _context.SaveChanges();
+              _context.MemorizeUnits.Attach(NewRec);
+               _context.Entry(NewRec).State = EntityState.Modified;
+               _context.SaveChanges();
             }
-            catch (DbUpdateException)
+            catch (Exception e)
             {
-
+                return e.Message;
             }
+
+            return NewRec.Id.ToString();
         }
 
         // Delete Unit
+        [AllowAnonymous]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public string Delete(int id)
         {
-            Models.MemorizeUnit contact = _context.MemorizeUnits.Find(id);
-            if (contact == null) { }
-            else
+
+
+            Models.MemorizeUnit Record;
+
+            try
             {
-                _context.MemorizeUnits.Remove(contact);
-                _context.SaveChanges();
+
+                Record = _context.MemorizeUnits.Where(x => x.Id == id).ToList()[0];
+
+                if (Record == null) { return null; }
+
+                else
+                {
+                    
+                    _context.MemorizeUnits.Remove(Record);
+
+                    _context.SaveChanges();
+
+                }
+
             }
+
+            catch (Exception e)
+            {
+                return e.InnerException.Message;
+            }
+
+            return Record.OwnerUsername;
         }
 
 
@@ -102,7 +141,7 @@ namespace MemorizeHelper.API.Controllers
         public async Task<IActionResult> GetAll([FromQuery] MemorizeUnitParams memorizeUnitParams)
         {
             //set IsGetTask para
-            memorizeUnitParams.IsGetTaskToday=false;
+            memorizeUnitParams.IsGetTaskToday = false;
 
             //get units
             var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
@@ -126,7 +165,7 @@ namespace MemorizeHelper.API.Controllers
             //memorizeUnitParams.Username = "abdullah";
 
             //set IsGetTask para
-            memorizeUnitParams.IsGetTaskToday=false;
+            memorizeUnitParams.IsGetTaskToday = false;
 
             //get units
             var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
@@ -137,7 +176,7 @@ namespace MemorizeHelper.API.Controllers
             return Ok(MemorizeUnits);
         }
 
-        
+
         //Get the unit should review today for a user
         [AllowAnonymous]
         [HttpGet("GetReviewTaskToday")]
@@ -152,17 +191,17 @@ namespace MemorizeHelper.API.Controllers
             //memorizeUnitParams.Username = "abdullah";
 
             //set IsGetTask para
-            memorizeUnitParams.IsGetTaskToday=true;
-            
+            memorizeUnitParams.IsGetTaskToday = true;
+
             //get units
             var MemorizeUnits = await _repo.GetMemorizeUnits(memorizeUnitParams);
-  
+
             Response.AddPagination(MemorizeUnits.CurrentPage, MemorizeUnits.TotalPages, MemorizeUnits.PageSize,
                 MemorizeUnits.TotalCount);
             return Ok(MemorizeUnits);
         }
 
-        
+
         //Quick add, copy others Memorize Unit
         [AllowAnonymous]
         [HttpPost("Copy/{id}")]
@@ -180,11 +219,11 @@ namespace MemorizeHelper.API.Controllers
             //reset the property and save
 
             //deal with counter
-           
+
         }
 
 
-        
+
 
     }
 }

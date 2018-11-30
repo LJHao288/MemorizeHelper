@@ -10,12 +10,8 @@ namespace MemorizeHelper.API.Models
 
         public string OwnerUsername { get; set; }
 
-        public List<User_> SubscribedUsers { get; set; }
-
         public string Title { get; set; }
-
-        public Content UnitContent { get; set; }
-        
+ 
         public String StringContent { get; set; }
 
         public virtual List<Schedule> Schedules { get; set; }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClientModule }    from '@angular/common/http';
 
 @Component({
   selector: 'app-view-unit',
@@ -28,12 +29,38 @@ export class ViewUnitComponent implements OnInit {
   
   Content = "";
   
-  constructor(private router: Router) { }
-
+  Dates = "";
+  
+  CreationDate = "";
+  
+  constructor(private router: Router,private httpClient:HttpClient) { }
+  
+     GetSchedule(Id){
+	 
+     const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
+	 
+	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetSchedule/" + Id).subscribe(data => {
+		 
+     this.Dates = data;
+	
+	 console.log(this.Dates);
+	 
+	 },err =>{
+		 
+	alert("Error");	 
+		 
+	 });
+	   	   
+  }
 
   ngOnInit() {
 	  
+	  
+	  
+	  
 	  this.CurrentUnit = JSON.parse(localStorage.getItem('CurrentUnit'));
+	  
+	  this.GetSchedule(this.CurrentUnit.id);
 	  
 	  this.Title = this.CurrentUnit.title;
 	  
@@ -47,7 +74,14 @@ export class ViewUnitComponent implements OnInit {
 	  
 	  this.Content = this.CurrentUnit.stringContent;
 	  
+	  this.CreationDate = this.CurrentUnit.creationDate;
+	  
+	  console.log(this.CreationDate);
+	  
+	  
   }
+  
+
   
    Back(){
 	  
