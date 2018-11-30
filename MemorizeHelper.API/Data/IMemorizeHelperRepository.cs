@@ -7,6 +7,8 @@ namespace MemorizeHelper.API.Data
     public interface IMemorizeHelperRepository
     {
         Task<User> GetUser(int id);
+
+        Task<User> GetUserByUsername(string username);
         
         Task<CounterUnit> GetCounterUnitByMemorizeUnitId(int id);
 

@@ -154,11 +154,16 @@ namespace MemorizeHelper.API.Controllers
         public async Task<IActionResult> GetForUserInPage([FromQuery] MemorizeUnitParams memorizeUnitParams)
         {
 
-            //set username para
-            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var userFromRepo = await _repo.GetUser(currentUserId);
-            memorizeUnitParams.Username = userFromRepo.Username;
+            //set username para, get user id from token
+            // var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            // var userFromRepo = await _repo.GetUser(currentUserId);
+            // memorizeUnitParams.Username = userFromRepo.Username;
 
+            //get user name from para,check if user exist
+            var userFromRepo = _repo.GetUserByUsername(memorizeUnitParams.Username);
+            if (userFromRepo == null){
+                return Unauthorized();
+            }
             //test
             //memorizeUnitParams.Username = "abdullah";
 
@@ -181,9 +186,16 @@ namespace MemorizeHelper.API.Controllers
         public async Task<IActionResult> GetReviewTaskToday([FromQuery] MemorizeUnitParams memorizeUnitParams)
         {
             //set username para
-            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var userFromRepo = await _repo.GetUser(currentUserId);
-            memorizeUnitParams.Username = userFromRepo.Username;
+            // var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            // var userFromRepo = await _repo.GetUser(currentUserId);
+            // memorizeUnitParams.Username = userFromRepo.Username;
+
+
+            //get user name from para,check if user exist
+            var userFromRepo = _repo.GetUserByUsername(memorizeUnitParams.Username);
+            if (userFromRepo == null){
+                return Unauthorized();
+            }
 
             //test
             //memorizeUnitParams.Username = "abdullah";
@@ -202,21 +214,27 @@ namespace MemorizeHelper.API.Controllers
 
         //Quick add, copy others Memorize Unit
         [AllowAnonymous]
-        [HttpPost("Copy/{id}")]
-        public async void Copy([FromQuery] int id)
+        [HttpPost("Copy/{id}/{userId}")]
+        public async Task<IActionResult> Copy(int id,int userId)
         {
+            
 
-            //get the login user
-            //var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            //var userFromRepo = await _repo.GetUser(currentUserId);
-            //var LoginUsername = userFromRepo.Username;
+            //get user id from para,check if user exist
+            var userFromRepo = _repo.GetUser(userId);
+            if (userFromRepo == null){
+                return Unauthorized();
+            }
+            var LoginUsername = userFromRepo.Result.Username;
 
             //test
-            var LoginUsername = "Li";
+            //var LoginUsername = "Li";
 
             //get the original Memorize unit
             var newMemorizeUnit = await _repo.GetMemorizeUnitNoTracking(id);
             var originalMemorizeUnitId = newMemorizeUnit.Id;
+            if(newMemorizeUnit.IsPrivate==true){
+                return Unauthorized();
+            }
 
             //reset the property and save
             newMemorizeUnit.Id =0;
@@ -233,8 +251,11 @@ namespace MemorizeHelper.API.Controllers
                 counterUnit.Count +=1;
 
             }
-            await _repo.SaveAll();
 
+            if (await _repo.SaveAll()){
+                return Ok();
+            }
+            return BadRequest("Could not copy");
         }
 
 

@@ -22,6 +22,13 @@ namespace MemorizeHelper.API.Data
             return user;
         }
 
+        public async Task<User> GetUserByUsername(string username)
+        {
+            var usernamelower =  username.ToLower();
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username ==usernamelower);
+            return user;
+        }
+
         public async Task<CounterUnit> GetCounterUnitByMemorizeUnitId(int id)
         {
             var counterUnit = await _context.CounterUnits.FirstOrDefaultAsync(u => u.MemorizeUnitId == id);
