@@ -53,7 +53,7 @@ export class SearchComponent implements OnInit {
 	 //console.log("inner text "+this.serach)
   const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 
-this.httpClient.get("http://localhost:44724/api/MemorizeUnit/?TitleSearch="+this.serach).subscribe(data => {
+this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetForUserInPage?/?TitleSearch="+this.serach).subscribe(data => {
   
   this.AllData = data;
 
@@ -65,7 +65,8 @@ console.log("in    "+JSON.stringify(localStorage.getItem('CurrentUnit')));
 // console.log("out  "+JSON.stringify(localStorage.getItem('CurrentUnit')));
 
 },err =>{
-  
+  console.log(" ---"+this.serach
+  )
 alert("Error");	 
   
 });

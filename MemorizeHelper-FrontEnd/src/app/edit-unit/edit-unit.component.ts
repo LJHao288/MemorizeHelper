@@ -29,7 +29,7 @@ export class EditUnitComponent implements OnInit {
   
   ValidData = true;
   
-  CurrentUnit = {};
+  CurrentUnit :any = {};
   
   TitleVal = "";
   
