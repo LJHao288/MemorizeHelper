@@ -43,7 +43,7 @@ export class EditUnitComponent implements OnInit {
   
   ContentVal = "";
 
-  Dates = ""; 
+  Dates = []; 
 
   UserID = "";  
   
@@ -56,7 +56,7 @@ export class EditUnitComponent implements OnInit {
 	 
 	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetSchedule/" + Id).subscribe(data => {
 		 
-     this.Dates = data;
+     this.Dates = Object.values(data);;
 	
 	 console.log(this.Dates);
 	 
