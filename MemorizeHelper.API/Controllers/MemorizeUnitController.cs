@@ -147,7 +147,7 @@ namespace MemorizeHelper.API.Controllers
         //get all public in pages
         [AllowAnonymous]
         [HttpGet("GetAllPublicInPage")]
-        public async Task<IActionResult> GetAll([FromQuery] MemorizeUnitParams memorizeUnitParams)
+        public async Task<IActionResult> GetAllPublic([FromQuery] MemorizeUnitParams memorizeUnitParams)
         {
             //set IsGetTask para
             memorizeUnitParams.IsGetTaskToday = false;
