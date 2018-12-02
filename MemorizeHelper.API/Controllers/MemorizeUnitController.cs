@@ -132,6 +132,17 @@ namespace MemorizeHelper.API.Controllers
             return Record.OwnerUsername;
         }
 
+        //Get popular Memorize Units
+        [AllowAnonymous]
+        [HttpGet("GetPopular")]
+        public async Task<IActionResult> GetPopular([FromQuery] int maxNum=3)
+        {
+            //get units
+            var MemorizeUnits = await _repo.GetPopularMemorizeUnits(maxNum);                    
+            return Ok(MemorizeUnits);
+        }
+
+
 
         //get all public in pages
         [AllowAnonymous]

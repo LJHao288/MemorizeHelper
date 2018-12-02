@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MemorizeHelper.API.Helpers;
@@ -90,6 +91,13 @@ namespace MemorizeHelper.API.Data
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() >0;
+        }
+
+        public async Task<List<MemorizeUnit>> GetPopularMemorizeUnits(int maxNum)
+        {
+            var popularMemorizeUnitIdList =  await _context.CounterUnits.OrderByDescending(x=>x.Count).Take(maxNum).Select(x=> x.MemorizeUnitId).ToListAsync();
+            var pupularMemorizeUnits = await _context.MemorizeUnits.Where(x => popularMemorizeUnitIdList.Contains(x.Id)).ToListAsync();
+            return(pupularMemorizeUnits);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MemorizeHelper.API.Helpers;
 using MemorizeHelper.API.Models;
@@ -13,6 +14,10 @@ namespace MemorizeHelper.API.Data
         Task<CounterUnit> GetCounterUnitByMemorizeUnitId(int id);
 
         Task<MemorizeUnit> GetMemorizeUnitNoTracking(int id);
+
+        
+        Task<List<MemorizeUnit>> GetPopularMemorizeUnits(int maxNum);
+
         Task<PagedList<MemorizeUnit>> GetMemorizeUnits(MemorizeUnitParams memorizeUnitParams);
 
         void Add<T>(T entity) where T: class;
