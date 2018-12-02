@@ -154,18 +154,12 @@ namespace MemorizeHelper.API.Controllers
         public async Task<IActionResult> GetForUserInPage([FromQuery] MemorizeUnitParams memorizeUnitParams)
         {
 
-            //set username para, get user id from token
-            // var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            // var userFromRepo = await _repo.GetUser(currentUserId);
-            // memorizeUnitParams.Username = userFromRepo.Username;
-
             //get user name from para,check if user exist
             var userFromRepo = _repo.GetUserByUsername(memorizeUnitParams.Username);
             if (userFromRepo == null){
                 return Unauthorized();
             }
-            //test
-            //memorizeUnitParams.Username = "abdullah";
+
 
             //set IsGetTask para
             memorizeUnitParams.IsGetTaskToday = false;
@@ -185,20 +179,12 @@ namespace MemorizeHelper.API.Controllers
         [HttpGet("GetReviewTaskToday")]
         public async Task<IActionResult> GetReviewTaskToday([FromQuery] MemorizeUnitParams memorizeUnitParams)
         {
-            //set username para
-            // var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            // var userFromRepo = await _repo.GetUser(currentUserId);
-            // memorizeUnitParams.Username = userFromRepo.Username;
-
 
             //get user name from para,check if user exist
             var userFromRepo = _repo.GetUserByUsername(memorizeUnitParams.Username);
             if (userFromRepo == null){
                 return Unauthorized();
             }
-
-            //test
-            //memorizeUnitParams.Username = "abdullah";
 
             //set IsGetTask para
             memorizeUnitParams.IsGetTaskToday = true;
@@ -226,8 +212,6 @@ namespace MemorizeHelper.API.Controllers
             }
             var LoginUsername = userFromRepo.Result.Username;
 
-            //test
-            //var LoginUsername = "Li";
 
             //get the original Memorize unit
             var newMemorizeUnit = await _repo.GetMemorizeUnitNoTracking(id);
