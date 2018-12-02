@@ -54,6 +54,10 @@ export class UserprofileComponent implements OnInit {
 	  
 	  this.router.navigateByUrl('/search');
   }
+  GetPopularMem() {
+	  
+	  this.router.navigateByUrl('/popular-mem-units');
+  }
   LogOut() {
 	  
 	  this.router.navigateByUrl('/login');

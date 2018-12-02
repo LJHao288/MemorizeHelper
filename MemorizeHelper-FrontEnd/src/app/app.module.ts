@@ -18,6 +18,7 @@ import { ViewUnitComponent } from './view-unit/view-unit.component';
 import { EditUnitComponent } from './edit-unit/edit-unit.component';
 import { SearchComponent } from './search/search.component';
 import {PopupModule} from 'ng2-opd-popup';
+import { PopularMemUnitsComponent } from './popular-mem-units/popular-mem-units.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {PopupModule} from 'ng2-opd-popup';
     ViewUnitComponent,
     EditUnitComponent,
     SearchComponent,
+    PopularMemUnitsComponent,
     
   ],
   imports: [
@@ -50,6 +52,7 @@ import {PopupModule} from 'ng2-opd-popup';
 	  { path: 'viewunit', component: ViewUnitComponent},
 	  { path: 'editunit', component: EditUnitComponent},
       { path: 'search', component: SearchComponent},
+      { path: 'popular-mem-units', component: PopularMemUnitsComponent},
       { path: '**', redirectTo: '/login' }
     ], {
         useHash: true
