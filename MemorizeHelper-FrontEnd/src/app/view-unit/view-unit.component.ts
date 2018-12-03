@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { HttpClientModule }    from '@angular/common/http';
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-view-unit',
   templateUrl: './view-unit.component.html',
@@ -33,7 +33,7 @@ export class ViewUnitComponent implements OnInit {
   
   CreationDate = "";
   
-  constructor(private router: Router,private httpClient:HttpClient) { }
+  constructor(private router: Router,private httpClient:HttpClient,private _location: Location) { }
   
      GetSchedule(Id){
 	 
@@ -85,7 +85,7 @@ export class ViewUnitComponent implements OnInit {
   
    Back(){
 	  
-	  this.router.navigateByUrl('/myprofile');
+    this._location.back();
 	
   }
 

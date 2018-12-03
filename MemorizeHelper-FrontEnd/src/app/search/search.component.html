@@ -12,14 +12,20 @@
       <div class="control">
         <button class="btn" type="button" (click)="SearchNow()">Search Now</button>
       </div> 
-      <div class="row" *ngFor="let X of AllData">
+	  <h1></h1>
+      <div class="row" *ngFor="let X of AllData" style="margin-bottom:15px;">
 
-        <div class="col-md-3"><p> {{X.title}} </p></div>
+        <div class="col-md-1"><p> {{X.title}} </p></div>
 
-<div class="col-md-3"><button (click)="View(X)" type="button" class="btn btn-default ">View</button></div>
+<div class="col-md-1"><button (click)="View(X)" type="button" class="btn btn-default " >View</button></div>
+
 
 
 </div>
+
+
+
+ <h1></h1>
 	  <div class="control">
         <button class="btn" type="button" (click)="Back()">Back</button>
       </div> 

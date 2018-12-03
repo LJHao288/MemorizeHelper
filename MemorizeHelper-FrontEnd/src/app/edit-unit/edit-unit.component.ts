@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-edit-unit',
   templateUrl: './edit-unit.component.html',
@@ -47,7 +47,7 @@ export class EditUnitComponent implements OnInit {
 
   UserID = "";  
   
-  constructor(private httpClient:HttpClient,private router: Router) { }
+  constructor(private httpClient:HttpClient,private router: Router,private _location: Location) { }
   
   
   GetSchedule(Id){
@@ -94,7 +94,7 @@ export class EditUnitComponent implements OnInit {
   
   Back(){
 	  
-	  this.router.navigateByUrl('/myprofile');
+	  this._location.back();
 	
   }
   
@@ -137,7 +137,7 @@ export class EditUnitComponent implements OnInit {
 	   {
 		   alert("Done");
 		   
-		   this.router.navigateByUrl('/myprofile');
+       this._location.back();
 		   
 		   },err => {
 			   

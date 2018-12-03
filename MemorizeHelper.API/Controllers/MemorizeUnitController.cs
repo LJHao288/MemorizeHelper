@@ -63,7 +63,7 @@ namespace MemorizeHelper.API.Controllers
         public async Task<IActionResult> GetSchedule(int Id)
         {
 
-            var Records =  _context.Schedule.Where(x => x.Unit.Id == Id).ToList();
+            var Records = _context.Schedule.Where(x => x.Unit.Id == Id).ToList();
 
             return Ok(Records);
         }
@@ -87,9 +87,21 @@ namespace MemorizeHelper.API.Controllers
         {
             try
             {
-              _context.MemorizeUnits.Attach(NewRec);
-               _context.Entry(NewRec).State = EntityState.Modified;
-               _context.SaveChanges();
+
+                List<Schedule> ToDel = _context.Schedule.Where(x => x.Unit.Id == NewRec.Id).ToList();
+
+                _context.Schedule.RemoveRange(ToDel);
+
+                _context.SaveChanges();
+
+
+                _context.Schedule.AddRange(NewRec.Schedules);
+
+                _context.MemorizeUnits.Attach(NewRec);
+                _context.Entry(NewRec).State = EntityState.Modified;
+                _context.SaveChanges();
+
+
             }
             catch (Exception e)
             {
@@ -115,7 +127,7 @@ namespace MemorizeHelper.API.Controllers
 
                 else
                 {
-                    
+
                     _context.MemorizeUnits.Remove(Record);
 
                     _context.SaveChanges();
@@ -135,10 +147,10 @@ namespace MemorizeHelper.API.Controllers
         //Get popular Memorize Units
         [AllowAnonymous]
         [HttpGet("GetPopular")]
-        public async Task<IActionResult> GetPopular([FromQuery] int maxNum=3)
+        public async Task<IActionResult> GetPopular([FromQuery] int maxNum = 3)
         {
             //get units
-            var MemorizeUnits = await _repo.GetPopularMemorizeUnits(maxNum);                    
+            var MemorizeUnits = await _repo.GetPopularMemorizeUnits(maxNum);
             return Ok(MemorizeUnits);
         }
 
@@ -167,7 +179,8 @@ namespace MemorizeHelper.API.Controllers
 
             //get user name from para,check if user exist
             var userFromRepo = _repo.GetUserByUsername(memorizeUnitParams.Username);
-            if (userFromRepo == null){
+            if (userFromRepo == null)
+            {
                 return Unauthorized();
             }
 
@@ -193,7 +206,8 @@ namespace MemorizeHelper.API.Controllers
 
             //get user name from para,check if user exist
             var userFromRepo = _repo.GetUserByUsername(memorizeUnitParams.Username);
-            if (userFromRepo == null){
+            if (userFromRepo == null)
+            {
                 return Unauthorized();
             }
 
@@ -212,13 +226,14 @@ namespace MemorizeHelper.API.Controllers
         //Quick add, copy others Memorize Unit
         [AllowAnonymous]
         [HttpPost("Copy/{id}/{userId}")]
-        public async Task<IActionResult> Copy(int id,int userId)
+        public async Task<IActionResult> Copy(int id, int userId)
         {
-            
+
 
             //get user id from para,check if user exist
             var userFromRepo = _repo.GetUser(userId);
-            if (userFromRepo == null){
+            if (userFromRepo == null)
+            {
                 return Unauthorized();
             }
             var LoginUsername = userFromRepo.Result.Username;
@@ -227,27 +242,32 @@ namespace MemorizeHelper.API.Controllers
             //get the original Memorize unit
             var newMemorizeUnit = await _repo.GetMemorizeUnitNoTracking(id);
             var originalMemorizeUnitId = newMemorizeUnit.Id;
-            if(newMemorizeUnit.IsPrivate==true){
+            if (newMemorizeUnit.IsPrivate == true)
+            {
                 return Unauthorized();
             }
 
             //reset the property and save
-            newMemorizeUnit.Id =0;
+            newMemorizeUnit.Id = 0;
             newMemorizeUnit.OwnerUsername = LoginUsername;
             _repo.Add<MemorizeHelper.API.Models.MemorizeUnit>(newMemorizeUnit);
-            
 
-         
+
+
             MemorizeHelper.API.Models.CounterUnit counterUnit = _repo.GetCounterUnitByMemorizeUnitId(originalMemorizeUnitId).Result;
-            if (counterUnit == null){
-                var newCounterUnit = new MemorizeHelper.API.Models.CounterUnit{MemorizeUnitId=originalMemorizeUnitId,Count=1};
+            if (counterUnit == null)
+            {
+                var newCounterUnit = new MemorizeHelper.API.Models.CounterUnit { MemorizeUnitId = originalMemorizeUnitId, Count = 1 };
                 _repo.Add<MemorizeHelper.API.Models.CounterUnit>(newCounterUnit);
-            }else{
-                counterUnit.Count +=1;
+            }
+            else
+            {
+                counterUnit.Count += 1;
 
             }
 
-            if (await _repo.SaveAll()){
+            if (await _repo.SaveAll())
+            {
                 return Ok();
             }
             return BadRequest("Could not copy");

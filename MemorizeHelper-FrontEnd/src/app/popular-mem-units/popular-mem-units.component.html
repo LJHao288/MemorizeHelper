@@ -1,0 +1,34 @@
+<div class="login-form-container">
+  <div class="form-container">
+    <form #AddForm="ngForm" (ngSubmit)="onFormSubmit(AddForm.value)" class="form">
+      <h4 class="form-header">
+      <!--{{Title}}-->
+      </h4>
+      
+      <div class="control">
+        <label for="Search" >Popular Units</label>
+        <input ngModel id="Searchtext" name="Searchtext" type="text" placeholder="Number of Popular memory Units...">
+             </div>
+      <div class="control">
+        <button class="btn" type="button" (click)="GetPopularMems()">Search Now</button>
+      </div> 
+      <div class="row" *ngFor="let X of AllData" style="margin-bottom:15px;">
+
+        <div class="col-md-1"><p> {{X.title}} </p></div>
+
+<div class="col-md-1"><button (click)="View(X)" type="button" class="btn btn-default ">View</button></div>
+<div class="col-md-1"><button  type="button" class="btn btn-default" (click)="Edit(X)" >&nbsp;Edit&nbsp;&nbsp;&nbsp;</button></div>
+
+        <div class="col-md-1"><button  (click)="ClickConfirmPopup(X)" type="button" class="btn btn-default">Delete</button></div>
+		
+        <popup (confirmClick)="ConfirmDeleteEvent()" (cancelClick)="CancelDeleteEvent()"class="ng2-opd-popup-content-main" _ngcontent-c3 >Are you sure you want to delete this Memory Unit?</popup>
+
+</div>
+	  <div class="control">
+        <button class="btn" type="button" (click)="Back()">Back</button>
+      </div> 
+	  
+	
+    </form>
+  </div>
+</div>

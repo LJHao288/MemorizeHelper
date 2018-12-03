@@ -22,8 +22,9 @@ export class UserprofileComponent implements OnInit {
   
   CurrentX = null;
   
+  
   GetAllData(){
-	 
+	  
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	 
 	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/"+this.Username).subscribe(data => {
@@ -38,11 +39,81 @@ export class UserprofileComponent implements OnInit {
 	   	   
   }
   
+  GetReviewTaskToday(){
+	  
+	    
+		  const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
+		  
+		  this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetReviewTaskToday?Username="+this.Username).subscribe(data => {
+			  
+			  this.AllData = data;
+			  
+			  
+			  },err =>{
+				  
+				  
+				  alert("Error");	 
+				  
+				  
+				  });
+				  
+				  
+  }
+  
+  ToggleDataLoader()
+  {
+	  
+	  if (localStorage.getItem('TodayButtonText')=='Today') 
+	  {
+		  
+		  
+		  this.TodayButtonText = "All";
+		  
+		  this.GetReviewTaskToday();
+		  
+	  }
+	  else
+	  {
+		  
+		  this.GetAllData();
+				  
+		  this.TodayButtonText = "Today";
+				  
+	  }
+	  
+	  
+  }
+  
+  SwitchToday()
+  {
+	  
+	  
+	  
+	  
+	  if (localStorage.getItem('TodayButtonText')=='Today')
+	  {
+		  localStorage.setItem('TodayButtonText','All');
+	  }
+	  else
+	  {
+		 localStorage.setItem('TodayButtonText','Today');  		  
+	  }
+	  	  
+	  this.ToggleDataLoader();
+  
+  }
+  
+  
   ngOnInit() {
 	  
 	  this.Username = localStorage.getItem('Username');
 	  
-	  this.GetAllData();
+	  if(localStorage.getItem('TodayButtonText')=="")
+	  {
+		  localStorage.setItem('TodayButtonText','All');
+	  }
+	  
+	  this.ToggleDataLoader();
 	  
   }
   
@@ -53,6 +124,10 @@ export class UserprofileComponent implements OnInit {
   Search() {
 	  
 	  this.router.navigateByUrl('/search');
+  }
+  GetPopularMem() {
+	  
+	  this.router.navigateByUrl('/popular-mem-units');
   }
   LogOut() {
 	  
@@ -96,7 +171,7 @@ export class UserprofileComponent implements OnInit {
 	
 	this.httpClient.delete("http://localhost:44724/api/MemorizeUnit/"+this.CurrentX.id,{responseType: 'text'}).subscribe(data => {
 		 
-		 this.GetAllData();
+		 this.ToggleDataLoader();
 		 this.popup.hide();
 		 
 	 },err =>{

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { HttpClientModule }    from '@angular/common/http';
 import { text } from '@angular/core/src/render3/instructions';
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -26,7 +27,7 @@ export class SearchComponent implements OnInit {
   
   Content = "";
   
-  constructor(private httpClient:HttpClient,private router: Router) { }
+  constructor(private httpClient:HttpClient,private router: Router,private _location: Location) { }
   AllData : any = [];
   
   ngOnInit() {
@@ -79,7 +80,7 @@ View(X)
 }
 Back(){
 	  
-  this.router.navigateByUrl('/myprofile');
+  this._location.back();
 
 }
 
