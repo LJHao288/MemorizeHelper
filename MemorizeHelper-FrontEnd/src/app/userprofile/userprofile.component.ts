@@ -22,9 +22,6 @@ export class UserprofileComponent implements OnInit {
   
   CurrentX = null;
   
-  TodayUnitsOnly = false;
-  
-  TodayButtonText = "Today";
   
   GetAllData(){
 	  
@@ -66,7 +63,7 @@ export class UserprofileComponent implements OnInit {
   ToggleDataLoader()
   {
 	  
-	  if (this.TodayUnitsOnly==true) 
+	  if (localStorage.getItem('TodayButtonText')=='Today') 
 	  {
 		  
 		  
@@ -90,14 +87,16 @@ export class UserprofileComponent implements OnInit {
   SwitchToday()
   {
 	  
-	  if (this.TodayUnitsOnly==true) 
+	  
+	  
+	  
+	  if (localStorage.getItem('TodayButtonText')=='Today')
 	  {
-		  this.TodayUnitsOnly = false;
-		
+		  localStorage.setItem('TodayButtonText','All');
 	  }
 	  else
 	  {
-		 this.TodayUnitsOnly = true;	  		  
+		 localStorage.setItem('TodayButtonText','Today');  		  
 	  }
 	  	  
 	  this.ToggleDataLoader();
@@ -108,6 +107,11 @@ export class UserprofileComponent implements OnInit {
   ngOnInit() {
 	  
 	  this.Username = localStorage.getItem('Username');
+	  
+	  if(localStorage.getItem('TodayButtonText')=="")
+	  {
+		  localStorage.setItem('TodayButtonText','All');
+	  }
 	  
 	  this.ToggleDataLoader();
 	  
