@@ -66,13 +66,13 @@ namespace MemorizeHelper.API.Data
             }
 
             if(!string.IsNullOrEmpty(memorizeUnitParams.SubjectNameSearch)){
-                MemorizeUnits = MemorizeUnits.Where(x=> x.SubjectName.Contains(memorizeUnitParams.SubjectNameSearch));
+                MemorizeUnits = MemorizeUnits.Where(x=> x.SubjectName.ToLower().Contains(memorizeUnitParams.SubjectNameSearch.ToLower()));
             }
             if(!string.IsNullOrEmpty(memorizeUnitParams.TitleSearch)){
-                MemorizeUnits = MemorizeUnits.Where(x=> x.Title.Contains(memorizeUnitParams.TitleSearch));
+                MemorizeUnits = MemorizeUnits.Where(x=> x.Title.ToLower().Contains(memorizeUnitParams.TitleSearch.ToLower()));
             }
             if(!string.IsNullOrEmpty(memorizeUnitParams.TagsSearch)){
-                MemorizeUnits = MemorizeUnits.Where(x=> x.Tags.Contains(memorizeUnitParams.TagsSearch));
+                MemorizeUnits = MemorizeUnits.Where(x=> x.Tags.ToLower().Contains(memorizeUnitParams.TagsSearch.ToLower()));
             }
 
             return await PagedList<MemorizeUnit>.CreateAsync(MemorizeUnits,memorizeUnitParams.PageNumber,memorizeUnitParams.PageSize);
