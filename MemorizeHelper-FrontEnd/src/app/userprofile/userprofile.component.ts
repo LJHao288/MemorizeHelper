@@ -24,6 +24,8 @@ export class UserprofileComponent implements OnInit {
   
   TodayUnitsOnly = false;
   
+  TodayButtonText = "Today";
+  
   GetAllData(){
 	  
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
@@ -42,14 +44,8 @@ export class UserprofileComponent implements OnInit {
   
   GetReviewTaskToday(){
 	  
-	  
-	   if (this.TodayUnitsOnly==false) 
-	  {
-		  
-		  this.TodayUnitsOnly = true;
-		  
+	    
 		  const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
-		  
 		  
 		  this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetReviewTaskToday?Username="+this.Username).subscribe(data => {
 			  
@@ -64,28 +60,56 @@ export class UserprofileComponent implements OnInit {
 				  
 				  });
 				  
-				  return;
 				  
-				  
-				  }
-				  
-				  this.GetAllData();
-				  
-				  
-				   this.TodayUnitsOnly = false;
-	   	   
   }
   
+  ToggleDataLoader()
+  {
+	  
+	  if (this.TodayUnitsOnly==true) 
+	  {
+		  
+		  
+		  this.TodayButtonText = "All";
+		  
+		  this.GetReviewTaskToday();
+		  
+	  }
+	  else
+	  {
+		  
+		  this.GetAllData();
+				  
+		  this.TodayButtonText = "Today";
+				  
+	  }
+	  
+	  
+  }
   
+  SwitchToday()
+  {
+	  
+	  if (this.TodayUnitsOnly==true) 
+	  {
+		  this.TodayUnitsOnly = false;
+		
+	  }
+	  else
+	  {
+		 this.TodayUnitsOnly = true;	  		  
+	  }
+	  	  
+	  this.ToggleDataLoader();
   
-  
+  }
   
   
   ngOnInit() {
 	  
 	  this.Username = localStorage.getItem('Username');
 	  
-	  this.GetAllData();
+	  this.ToggleDataLoader();
 	  
   }
   
@@ -143,7 +167,7 @@ export class UserprofileComponent implements OnInit {
 	
 	this.httpClient.delete("http://localhost:44724/api/MemorizeUnit/"+this.CurrentX.id,{responseType: 'text'}).subscribe(data => {
 		 
-		 this.GetAllData();
+		 this.ToggleDataLoader();
 		 this.popup.hide();
 		 
 	 },err =>{
