@@ -68,6 +68,7 @@ namespace MemorizeHelper.API.Data
             if(!string.IsNullOrEmpty(memorizeUnitParams.SubjectNameSearch)){
                 MemorizeUnits = MemorizeUnits.Where(x=> x.SubjectName.ToLower().Contains(memorizeUnitParams.SubjectNameSearch.ToLower()));
             }
+            
             if(!string.IsNullOrEmpty(memorizeUnitParams.TitleSearch)){
                 MemorizeUnits = MemorizeUnits.Where(x=> x.Title.ToLower().Contains(memorizeUnitParams.TitleSearch.ToLower()));
             }
