@@ -225,13 +225,13 @@ namespace MemorizeHelper.API.Controllers
 
         //Quick add, copy others Memorize Unit
         [AllowAnonymous]
-        [HttpPost("Copy/{id}/{userId}")]
-        public async Task<IActionResult> Copy(int id, int userId)
+        [HttpPost("Copy/{id}/{userName}")]
+        public async Task<IActionResult> Copy(int id, string userName)
         {
 
 
             //get user id from para,check if user exist
-            var userFromRepo = _repo.GetUser(userId);
+            var userFromRepo = _repo.GetUserByUsername(userName);
             if (userFromRepo == null)
             {
                 return Unauthorized();
@@ -272,9 +272,6 @@ namespace MemorizeHelper.API.Controllers
             }
             return BadRequest("Could not copy");
         }
-
-
-
 
     }
 }
