@@ -22,8 +22,10 @@ export class UserprofileComponent implements OnInit {
   
   CurrentX = null;
   
+  TodayUnitsOnly = false;
+  
   GetAllData(){
-	 
+	  
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	 
 	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/"+this.Username).subscribe(data => {
@@ -37,6 +39,47 @@ export class UserprofileComponent implements OnInit {
 	 });
 	   	   
   }
+  
+  GetReviewTaskToday(){
+	  
+	  
+	   if (this.TodayUnitsOnly==false) 
+	  {
+		  
+		  this.TodayUnitsOnly = true;
+		  
+		  const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
+		  
+		  
+		  this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetReviewTaskToday?Username="+this.Username).subscribe(data => {
+			  
+			  this.AllData = data;
+			  
+			  
+			  },err =>{
+				  
+				  
+				  alert("Error");	 
+				  
+				  
+				  });
+				  
+				  return;
+				  
+				  
+				  }
+				  
+				  this.GetAllData();
+				  
+				  
+				   this.TodayUnitsOnly = false;
+	   	   
+  }
+  
+  
+  
+  
+  
   
   ngOnInit() {
 	  

@@ -8,6 +8,23 @@
       </h4>
       <h4></h4>
       <h4></h4>
+	  
+	  
+	  
+	  <div class="row">
+
+        
+		<div class="col-md-1"><button  (click)="GetReviewTaskToday()" type="button" class="btn btn-default">Tasks</button></div>
+		
+        <div class="col-md-1"><button  (click)="AddNew()" type="button" class="btn btn-default">&nbsp;Add&nbsp;&nbsp;</button></div>
+
+        <div class="col-md-1"><button  type="button" class="btn btn-default" (click)="Search()" >Search</button></div>
+
+        <div class="col-md-1"><button  (click)="GetPopularMem()" type="button" class="btn btn-default">Popular</button></div>
+		
+      </div>
+	  
+	  
       <div class="row" *ngFor="let X of AllData">
 
         <div class="col-md-1">
@@ -26,20 +43,11 @@
 
       <h4></h4>
       <h4></h4>
-
-      <div class="control">
-        <button class="btn" (click)="AddNew()">Add New Unit</button>
-      </div>
-      <div class="control">
-        <button  class="btn" (click)="Search()">Serach for public memory Units</button>
-      </div>
-      <div class="control">
-        <button  class="btn" (click)="GetPopularMem()">Get Popular memory Units </button>
-      </div>
-      <div class="control">
+ 
+	  <div class="control">
         <button class="btn" (click)="LogOut()">Log Out</button>
       </div>
-
+	  
     </div>
   </div>
 </div>
