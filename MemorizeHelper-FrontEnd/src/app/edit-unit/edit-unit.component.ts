@@ -94,7 +94,7 @@ export class EditUnitComponent implements OnInit {
   
   Back(){
 	  
-	  this.router.navigateByUrl('/myprofile');
+	  this._location.back();
 	
   }
   

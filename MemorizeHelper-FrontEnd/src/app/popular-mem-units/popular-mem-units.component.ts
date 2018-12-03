@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from '@angular/router';
 import {Popup} from 'ng2-opd-popup';
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-popular-mem-units',
   templateUrl: './popular-mem-units.component.html',
@@ -40,7 +41,7 @@ export class PopularMemUnitsComponent implements OnInit {
   });
          
  }
-  constructor(private httpClient:HttpClient,private router: Router, private popup: Popup) { }
+  constructor(private httpClient:HttpClient,private router: Router, private popup: Popup,private _location: Location) { }
   AllData : any = [];
   
   ngOnInit() {
@@ -141,7 +142,7 @@ CancelDeleteEvent(){
 }
 Back(){
 	  
-  this.router.navigateByUrl('/myprofile');
+  this._location.back();
 
 }
 
