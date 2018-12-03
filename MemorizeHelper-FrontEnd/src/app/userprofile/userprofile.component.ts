@@ -21,7 +21,7 @@ export class UserprofileComponent implements OnInit {
   Header = {};
   
   CurrentX = null;
-  
+  TodayButtonText="";
   
   GetAllData(){
 	  

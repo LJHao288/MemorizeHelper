@@ -78,6 +78,34 @@ View(X)
   localStorage.setItem('CurrentUnit', JSON.stringify(X));
   this.router.navigateByUrl('/viewunit');
 }
+
+Clone(X)
+{
+  
+  var Username=localStorage.getItem('Username');
+  console.log("Username "+Username)
+  this.CurrentUnit = JSON.parse(X.id);
+  console.log("id ... MEM  "+JSON.stringify(this.CurrentUnit));
+  
+var id;
+const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
+
+  this.httpClient.post("http://localhost:44724/api/MemorizeUnit/Copy/"+this.CurrentUnit+"/"+Username,{ headers: Headers }).subscribe(data => {
+  
+    this.AllData = data;
+  
+  alert("Clone Done!");
+ // localStorage.setItem('CurrentUnit', JSON.stringify(this.AllData));
+  //console.log("in    "+JSON.stringify(localStorage.getItem('CurrentUnit')));
+  
+  },err =>{
+    console.log(" ---"+this.serach
+    )
+  alert("Unable to Clone it!");	 
+    
+  });
+
+}
 Back(){
 	  
   this._location.back();
