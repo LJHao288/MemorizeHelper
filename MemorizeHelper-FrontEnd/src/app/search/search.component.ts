@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { HttpClientModule }    from '@angular/common/http';
 import { text } from '@angular/core/src/render3/instructions';
 import {Location} from '@angular/common';
+import { TouchSequence } from 'selenium-webdriver';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -45,16 +46,21 @@ export class SearchComponent implements OnInit {
 	  
 	  this.Content = this.CurrentUnit.stringContent;
   }
-  serach = "";
+  serachTitle = "";
+  serachTag = "";
+  SubjectName="";
   SearchNow()
   {  
 
-    this.serach=(<HTMLInputElement>document.getElementById("Searchtext")).value;
-   
+    this.serachTitle=(<HTMLInputElement>document.getElementById("Searchtext")).value;
+    this.serachTag=(<HTMLInputElement>document.getElementById("Searchtext2")).value;
+    this.SubjectName=(<HTMLInputElement>document.getElementById("Searchtext3")).value;
+   console.log("serachTitle "+this.serachTitle)
+   console.log("serachTag "+this.serachTag)
 	 //console.log("inner text "+this.serach)
   const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 
-this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetForUserInPage?TitleSearch="+this.serach).subscribe(data => {
+this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetForUserInPage?TitleSearch="+this.serachTitle+"&TagsSearch="+this.serachTag+"&SubjectNameSearch="+this.SubjectName).subscribe(data => {
   
   this.AllData = data;
 
@@ -66,7 +72,7 @@ console.log("in    "+JSON.stringify(localStorage.getItem('CurrentUnit')));
 // console.log("out  "+JSON.stringify(localStorage.getItem('CurrentUnit')));
 
 },err =>{
-  console.log(" ---"+this.serach
+  console.log(" ---"+this.serachTag+ "-- "+this.serachTitle +"--"+this.SubjectName
   )
 alert("Error");	 
   
@@ -99,7 +105,7 @@ const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
   //console.log("in    "+JSON.stringify(localStorage.getItem('CurrentUnit')));
   
   },err =>{
-    console.log(" ---"+this.serach
+    console.log(" ---"+this.serachTag+"--"+this.serachTitle+"--"+this.SubjectName
     )
   alert("Unable to Clone it!");	 
     
