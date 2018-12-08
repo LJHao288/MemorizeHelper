@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MemorizeHelper.API.Data;
+using MemorizeHelper.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,7 @@ namespace MemorizeHelper.API
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
+            services.Configure<TokenSetting>(Configuration.GetSection("AppSettings"));
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IMemorizeHelperRepository, MemorizeHelperRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

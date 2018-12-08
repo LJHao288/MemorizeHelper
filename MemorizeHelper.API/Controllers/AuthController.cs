@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MemorizeHelper.API.Data;
 using MemorizeHelper.API.Dtos;
+using MemorizeHelper.API.Helpers;
 using MemorizeHelper.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace MemorizeHelper.API.Controllers
@@ -17,10 +19,10 @@ namespace MemorizeHelper.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
-        private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        private readonly IOptions<TokenSetting> _tokenSetting;
+        public AuthController(IAuthRepository repo, IOptions<TokenSetting> tokenSetting)
         {
-            _config = config;
+            _tokenSetting = tokenSetting;
             _repo = repo;
 
         }
@@ -58,9 +60,9 @@ namespace MemorizeHelper.API.Controllers
                 new Claim(ClaimTypes.Name, userFromRepo.Username)
 
             };
-
+            var stringTokenkey = _tokenSetting.Value.TokenKey;
             var key = new SymmetricSecurityKey(Encoding.UTF8
-            .GetBytes(_config.GetSection("AppSettings:Token").Value));
+            .GetBytes(stringTokenkey));
 
             var creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha512Signature);
 
