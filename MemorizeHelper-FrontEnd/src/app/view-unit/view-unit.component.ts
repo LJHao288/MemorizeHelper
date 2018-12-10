@@ -52,7 +52,8 @@ export class ViewUnitComponent implements OnInit {
 	 });
 	   	   
   }
-
+  onFormSubmit(data) {
+  }
   ngOnInit() {
 	  
 	  

@@ -84,7 +84,8 @@ View(X)
   localStorage.setItem('CurrentUnit', JSON.stringify(X));
   this.router.navigateByUrl('/viewunit');
 }
-
+onFormSubmit(data) {
+}
 Clone(X)
 {
   

@@ -64,6 +64,9 @@ export class PopularMemUnitsComponent implements OnInit {
 	  this.GetAllData();
   }
   max_MemUnits = "";
+
+  onFormSubmit(data) {
+  }
   GetPopularMems()
   {  
 
