@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { HttpClientModule }    from '@angular/common/http';
 import {Popup} from 'ng2-opd-popup';
-
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
@@ -27,7 +28,7 @@ export class UserprofileComponent implements OnInit {
 	  
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	 
-	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/"+this.Username).subscribe(data => {
+	 this.httpClient.get(apiUrl+"/MemorizeUnit/"+this.Username).subscribe(data => {
 		 
      this.AllData = data;
 	 
@@ -44,7 +45,7 @@ export class UserprofileComponent implements OnInit {
 	    
 		  const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 		  
-		  this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetReviewTaskToday?Username="+this.Username).subscribe(data => {
+		  this.httpClient.get(apiUrl+"/MemorizeUnit/GetReviewTaskToday?Username="+this.Username).subscribe(data => {
 			  
 			  this.AllData = data;
 			  
@@ -169,7 +170,7 @@ export class UserprofileComponent implements OnInit {
 	
                   
 	
-	this.httpClient.delete("http://localhost:44724/api/MemorizeUnit/"+this.CurrentX.id,{responseType: 'text'}).subscribe(data => {
+	this.httpClient.delete(apiUrl+"/MemorizeUnit/"+this.CurrentX.id,{responseType: 'text'}).subscribe(data => {
 		 
 		 this.ToggleDataLoader();
 		 this.popup.hide();

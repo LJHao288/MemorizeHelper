@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import 'rxjs/add/operator/map'
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -38,7 +40,7 @@ export class UserComponent implements OnInit {
 
   get_users(){
     //return JSON.stringify(this.httpClient.get('http://localhost:5000/api/values/1',{observe: 'response'})
-    return JSON.stringify(this.httpClient.get('http://localhost:5000/api/values/1'));
+    return JSON.stringify(this.httpClient.get(apiUrl+'/values/1'));
     
 }
 

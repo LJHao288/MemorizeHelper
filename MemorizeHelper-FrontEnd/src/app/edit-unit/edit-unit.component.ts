@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {Location} from '@angular/common';
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-edit-unit',
   templateUrl: './edit-unit.component.html',
@@ -54,7 +56,7 @@ export class EditUnitComponent implements OnInit {
 	 
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	 
-	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetSchedule/" + Id).subscribe(data => {
+	 this.httpClient.get(apiUrl+"/MemorizeUnit/GetSchedule/" + Id).subscribe(data => {
 		 
      this.Dates = Object.values(data);;
 	
@@ -133,7 +135,7 @@ export class EditUnitComponent implements OnInit {
 	   
 	   console.log(this.JsonData);
 	   
-	   var post = this.httpClient.put('http://localhost:44724/api/MemorizeUnit/',this.JsonData,{ headers: Headers }).subscribe(data => 
+	   var post = this.httpClient.put(apiUrl+'/MemorizeUnit/',this.JsonData,{ headers: Headers }).subscribe(data => 
 	   {
 		   alert("Done");
 		   
