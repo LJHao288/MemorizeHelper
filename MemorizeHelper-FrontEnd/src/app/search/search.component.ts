@@ -5,6 +5,8 @@ import { HttpClientModule }    from '@angular/common/http';
 import { text } from '@angular/core/src/render3/instructions';
 import {Location} from '@angular/common';
 import { TouchSequence } from 'selenium-webdriver';
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -60,7 +62,7 @@ export class SearchComponent implements OnInit {
 	 //console.log("inner text "+this.serach)
   const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 
-this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetForUserInPage?TitleSearch="+this.serachTitle+"&TagsSearch="+this.serachTag+"&SubjectNameSearch="+this.SubjectName).subscribe(data => {
+this.httpClient.get(apiUrl+"/MemorizeUnit/GetForUserInPage?TitleSearch="+this.serachTitle+"&TagsSearch="+this.serachTag+"&SubjectNameSearch="+this.SubjectName).subscribe(data => {
   
   this.AllData = data;
 
@@ -97,7 +99,7 @@ Clone(X)
 var id;
 const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 
-  this.httpClient.post("http://localhost:44724/api/MemorizeUnit/Copy/"+this.CurrentUnit+"/"+Username,{ headers: Headers }).subscribe(data => {
+  this.httpClient.post(apiUrl+"/MemorizeUnit/Copy/"+this.CurrentUnit+"/"+Username,{ headers: Headers }).subscribe(data => {
   
     this.AllData = data;
   

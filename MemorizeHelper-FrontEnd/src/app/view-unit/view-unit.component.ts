@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { HttpClientModule }    from '@angular/common/http';
 import {Location} from '@angular/common';
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-view-unit',
   templateUrl: './view-unit.component.html',
@@ -39,7 +41,7 @@ export class ViewUnitComponent implements OnInit {
 	 
      const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 	 
-	 this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetSchedule/" + Id).subscribe(data => {
+	 this.httpClient.get(apiUrl+"/MemorizeUnit/GetSchedule/" + Id).subscribe(data => {
 		 
      this.Dates = Object.values(data);
 	

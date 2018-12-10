@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-
-
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-add-memory-uit',
   templateUrl: './add-memory-uit.component.html',
@@ -77,7 +77,7 @@ export class AddMemoryUitComponent implements OnInit {
 	   
 	   console.log(this.JsonData);
 	   
-	   var post = this.httpClient.post('http://localhost:44724/api/MemorizeUnit', this.JsonData ,{ headers: Headers }).subscribe(data => 
+	   var post = this.httpClient.post(apiUrl+'/MemorizeUnit', this.JsonData ,{ headers: Headers }).subscribe(data => 
 	   {
 		   
 		   this.router.navigateByUrl('/myprofile');

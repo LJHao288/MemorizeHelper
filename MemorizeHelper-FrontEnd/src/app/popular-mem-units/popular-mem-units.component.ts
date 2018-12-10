@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from '@angular/router';
 import {Popup} from 'ng2-opd-popup';
 import {Location} from '@angular/common';
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-popular-mem-units',
   templateUrl: './popular-mem-units.component.html',
@@ -30,7 +32,7 @@ export class PopularMemUnitsComponent implements OnInit {
 	 
     const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
   
-  this.httpClient.get("http://localhost:44724/api/MemorizeUnit/"+this.Username).subscribe(data => {
+  this.httpClient.get(apiUrl+"/MemorizeUnit/"+this.Username).subscribe(data => {
     
     this.AllData = data;
   
@@ -75,7 +77,7 @@ export class PopularMemUnitsComponent implements OnInit {
 	 //console.log("inner text "+this.serach)
   const Headers = new HttpHeaders().append('Content-Type' , 'application/json');
 
-this.httpClient.get("http://localhost:44724/api/MemorizeUnit/GetPopular?maxNum="+this.max_MemUnits).subscribe(data => {
+this.httpClient.get(apiUrl+"/MemorizeUnit/GetPopular?maxNum="+this.max_MemUnits).subscribe(data => {
   
   this.AllData = data;
 
@@ -122,7 +124,7 @@ ConfirmDeleteEvent(){
 
                 
 
-this.httpClient.delete("http://localhost:44724/api/MemorizeUnit/"+this.CurrentX.id,{responseType: 'text'}).subscribe(data => {
+this.httpClient.delete(apiUrl+"/MemorizeUnit/"+this.CurrentX.id,{responseType: 'text'}).subscribe(data => {
    
    this.GetAllData();
    this.popup.hide();

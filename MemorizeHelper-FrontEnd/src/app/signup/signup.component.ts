@@ -1,6 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -23,7 +25,7 @@ const headers = new HttpHeaders().append('Content-Type' , 'application/json')
 //console.log(JSON.stringify({username:a, password:b}));
 //var queryHeaders = new HttpHeaders();
    // queryHeaders.append('Content-Type', 'application/json');
-var post=this.httpClient.post("http://localhost:44724/api/auth/register", parameter,{ headers: headers })
+var post=this.httpClient.post(apiUrl+"/auth/register", parameter,{ headers: headers })
 
 .subscribe(data => 
   {

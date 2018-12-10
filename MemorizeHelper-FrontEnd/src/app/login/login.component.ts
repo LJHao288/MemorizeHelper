@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from '../../environments/environment';
+var apiUrl = environment.apiUrl;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,9 +25,9 @@ export class LoginComponent implements OnInit {
  //console.log("name"+name+" password"+password);
     console.log(data);
     var parameter = JSON.stringify({username:name, password:password});
-  //console.log("pap"+parameter);
+  console.log("apiUrl"+apiUrl);
   const headers = new HttpHeaders().append('Content-Type' , 'application/json')
-  var postd=this.httpClient.post("http://localhost:44724/api/auth/login", parameter,{ headers: headers })
+  var postd=this.httpClient.post(apiUrl+"/auth/login", parameter,{ headers: headers })
 
   .subscribe(
     (Data : any) => {
